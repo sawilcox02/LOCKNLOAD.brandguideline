@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LOCKNLOAD Brand Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Saira+Semi+Condensed:wght@400;500;600&display=swap">
+<!-- Adobe Fonts web project (BC Barell Extended Black; Address Sans Pro to be added) -->
+<link rel="stylesheet" href="https://use.typekit.net/lgs5npq.css">
+<style>
+/* Layout: fixed Shadow rail (contents + faction switch) beside a long scroll of chapters.
+   Chapters open on Shadow dividers with the emblem supergraphic; content pages sit on white,
+   label column left / copy column right, mirroring the print deck's grid. Single committed look. */
+@font-face{font-family:"LNL Display";src:local("BC Barell Extended Black"),local("BCBarell-ExtendedBlack"),local("BC Barell ExtendedBlack");}
+@font-face{font-family:"LNL Text";src:local("Address Sans Pro"),local("AddressSansPro-Regular"),local("Address Sans Pro Regular");}
+:root{
+  --pulse:#9C26F0; --shadow:#211F2D; --frost:#EEF1F9; --ignition:#FF7514; --surge:#91E829;
+  --paper:#FFFFFF; --ink:#211F2D; --muted:#5E5B70; --line:#DCDFEA; --shadow-2:#2B2939; --shadow-line:#3A3850;
+  --fac:var(--pulse);
+  --display:"bc-barell-extended-black","BC Barell","LNL Display","Archivo","Arial Black",sans-serif;
+  --text:"address-sans-pro","Address Sans Pro","LNL Text","Saira Semi Condensed","Arial Narrow",sans-serif;
+  --rail:248px;
+  color-scheme:light;
+}
+html[data-faction="focus"]{--fac:var(--ignition)}
+html[data-faction="adapt"]{--fac:var(--pulse)}
+html[data-faction="breach"]{--fac:var(--surge)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.d{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.92}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--fac);outline-offset:2px}
+.svgfill{display:block}
+
+/* rail */
+.rail{position:fixed;inset:0 auto 0 0;width:var(--rail);background:var(--shadow);color:var(--frost);display:flex;flex-direction:column;z-index:20;padding:28px 0 0}
+.rail-logo{padding:0 24px 22px;border-bottom:1px solid var(--shadow-line)}
+.rail-logo svg{width:100%;height:auto}
+.rail nav{flex:1;overflow-y:auto;padding:18px 0}
+.rail .ch{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8E8AA6;padding:14px 24px 6px;display:flex;gap:10px}
+.rail .ch span{color:var(--fac)}
+.rail nav a{display:block;padding:5px 24px 5px 46px;text-decoration:none;font-size:15px;color:#C9CBDA;border-left:3px solid transparent}
+.rail nav a:hover{color:#fff}
+.rail nav a.on{color:#fff;border-left-color:var(--fac);background:var(--shadow-2)}
+.fswitch{padding:16px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--shadow-line)}
+.fswitch .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8E8AA6;margin-bottom:8px}
+.fbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.fbtn{background:var(--shadow-2);border:1px solid var(--shadow-line);border-radius:0;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:9px;letter-spacing:.06em;color:#C9CBDA}
+.fbtn svg{width:30px;height:auto}
+.fbtn[aria-pressed="true"]{border-color:currentColor;color:#fff}
+.fbtn[data-f="focus"][aria-pressed="true"]{border-color:var(--ignition)}
+.fbtn[data-f="adapt"][aria-pressed="true"]{border-color:var(--pulse)}
+.fbtn[data-f="breach"][aria-pressed="true"]{border-color:var(--surge)}
+.topbar{display:none}
+
+main{margin-left:var(--rail)}
+.wrap{max-width:1180px;padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}
+
+/* chapter divider */
+.divider{position:relative;background:var(--shadow);color:var(--frost);overflow:hidden;min-height:440px;display:flex;align-items:flex-end}
+.divider .wrap{padding-block:56px 48px;position:relative;z-index:1;width:100%}
+.divider .num{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:14px;letter-spacing:.1em;color:var(--fac);margin-bottom:14px}
+.divider h2{font-size:clamp(44px,7vw,96px)}
+.divider p{max-width:58ch;margin-top:18px;color:#C9CBDA;font-size:18px}
+.super{position:absolute;right:-6%;top:-18%;width:min(62%,760px);pointer-events:none}
+.super path{fill:var(--pulse)}
+
+/* content section */
+.sec{padding-block:88px 72px;border-bottom:1px solid var(--line);position:relative}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:48px}
+.sec h2{font-size:clamp(32px,4.4vw,54px)}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600}
+.rows{display:grid;gap:40px}
+.row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;align-items:start}
+.row>.lab{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;letter-spacing:.05em;text-transform:uppercase;line-height:1.15;padding-top:5px}
+.row>.val{max-width:64ch}
+.val p+p{margin-top:14px}
+.lead{font-size:clamp(20px,2vw,24px);line-height:1.38}
+.note{font-size:14px;color:var(--muted)}
+.rule{border-left:3px solid var(--fac);padding:4px 0 4px 16px;font-size:15px;color:var(--muted);max-width:70ch}
+.rule b{color:var(--ink);font-weight:600}
+
+/* values / traits */
+.values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line);border:2px solid var(--line)}
+.value{background:var(--paper);padding:22px 20px 24px;display:flex;flex-direction:column;gap:10px}
+.value h3{font-size:15px}
+.value p{font-size:15px;color:var(--muted)}
+.value .ix{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px;color:var(--pulse)}
+.pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.pair{background:var(--frost);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.pair .yes{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:17px;text-transform:uppercase}
+.pair .no{font-size:15px;color:var(--muted)}
+.pair .no s{text-decoration-thickness:2px;text-decoration-color:var(--pulse)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--shadow);color:var(--frost);padding:7px 14px 6px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
+.chip.alt{background:var(--frost);color:var(--ink)}
+.comp{display:grid;gap:12px}
+.comp div{display:grid;grid-template-columns:200px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.comp b{font-weight:600}
+.cta-demo{background:var(--shadow);color:var(--frost);padding:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.cta-demo .d{font-size:clamp(30px,4vw,48px)}
+.cta-demo .d em{font-style:normal;color:var(--fac)}
+
+/* logo */
+.panel{position:relative;display:flex;align-items:center;justify-content:center;padding:clamp(32px,6vw,72px)}
+.panel.dark{background:var(--shadow)}
+.panel.light{background:var(--frost)}
+.panel .tag{position:absolute;left:16px;top:14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.panel.dark .tag{color:#8E8AA6}.panel.light .tag{color:var(--muted)}
+.logo-stack{display:grid;gap:2px}
+.logo-stack svg{width:min(100%,640px);height:auto}
+.emb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+.emb-grid svg{width:min(70%,260px);height:auto}
+.construct{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;margin-top:48px}
+.stage{background:var(--frost);aspect-ratio:4/3;max-width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.stage svg{width:72%;height:auto;overflow:visible}
+.stage .half{transition:transform .7s cubic-bezier(.2,.9,.2,1),fill .3s}
+.stage[data-state="apart"] .h1{transform:translate(-26px,-30px)}
+.stage[data-state="apart"] .h2{transform:translate(26px,30px)}
+.stage .ann{opacity:0;transition:opacity .3s;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:22px}
+.stage[data-mode="construct"] .ann{opacity:1}
+.stage[data-mode="construct"] .h2{fill:#C69AF7}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:2px solid var(--ink);background:transparent;padding:9px 16px 8px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn.solid{background:var(--pulse);border-color:var(--pulse);color:#fff}
+.btn.solid:hover{background:var(--shadow);border-color:var(--shadow)}
+.misuse{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.mis{display:flex;flex-direction:column;gap:10px}
+.mis .box{background:var(--frost);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.mis .box svg{width:78%;height:auto;overflow:visible}
+.mis .box::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),rgba(33,31,45,.55) calc(50% - 1.5px),rgba(33,31,45,.55) calc(50% + 1.5px),transparent calc(50% + 1.5px))}
+.mis b{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;text-transform:uppercase}
+.mis span{font-size:14px;color:var(--muted)}
+
+/* factions */
+.fac-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--line)}
+.fac-tab{background:var(--shadow);border:0;padding:28px 18px 22px;display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;color:#8E8AA6}
+.fac-tab svg{width:min(66%,190px);height:auto;transition:transform .35s,opacity .35s;opacity:.45}
+.fac-tab .nm{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:16px;letter-spacing:.04em}
+.fac-tab[aria-pressed="true"] svg{opacity:1;transform:scale(1.06)}
+.fac-tab[aria-pressed="true"]{color:#fff}
+.fac-tab[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--fac)}
+.fac-tab:hover svg{opacity:.85}
+.fac-detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;margin-top:40px;align-items:start}
+.fac-detail .d{font-size:40px;color:var(--ink)}
+.fac-detail .d em{font-style:normal;display:block;width:56px;height:8px;background:var(--fac);margin-bottom:16px}
+.spec{display:grid;gap:0;margin-top:20px}
+.spec div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.spec div>span:first-child{color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:600;padding-top:2px}
+.fac-detail img{width:100%;display:block}
+
+/* color */
+.swatches{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:auto auto;gap:4px}
+.sw{border:0;text-align:left;padding:18px 18px 16px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;position:relative}
+.sw.p{grid-column:span 2;min-height:260px}
+.sw.s{grid-column:span 3;min-height:150px}
+.sw .nm{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:17px;text-transform:uppercase;line-height:1}
+.sw .hx{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:14px;margin-top:4px}
+.sw .meta{font-size:13px;line-height:1.45;opacity:.85;font-variant-numeric:tabular-nums}
+.sw .cp{position:absolute;right:14px;top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:0;transition:opacity .2s}
+.sw:hover .cp,.sw:focus-visible .cp{opacity:.9}
+.roles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:28px}
+.roles div{font-size:14px;color:var(--muted)}
+.roles b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+.ratio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:56px;align-items:start}
+.mx-wrap{overflow-x:auto}
+.mx{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px}
+.mx th{font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px;text-align:left}
+.mx td{padding:2px}
+.mx button{width:62px;height:46px;border:0;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;position:relative}
+.mx button[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:1px}
+.mx button.fail{font-size:11px;opacity:.5}
+.prev{padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.prev .d{font-size:clamp(30px,4vw,46px)}
+.verdict{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.verdict .r{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:26px;margin-right:8px;font-variant-numeric:tabular-nums}
+.pill{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:5px 10px 4px;border:1.5px solid var(--ink)}
+.pill.ok{background:var(--ink);color:var(--paper)}
+.pill.no{border-style:dashed;color:var(--muted);border-color:var(--muted)}
+
+/* type */
+.typepair{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:4px}
+.tcard{padding:32px;display:flex;flex-direction:column;gap:22px;min-height:340px}
+.tcard.dk{background:var(--shadow);color:var(--frost)}
+.tcard.lt{background:var(--frost)}
+.tcard .role{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.7}
+.tcard .big{font-size:clamp(46px,6vw,84px)}
+.tcard .glyphs{font-size:20px;line-height:1.5;word-break:break-all}
+.tcard .tbig{font-size:clamp(40px,5vw,64px);line-height:1}
+.tester{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
+.layout-demo{background:var(--paper);border:1px solid var(--line);padding:36px;display:flex;flex-direction:column;gap:14px;text-align:left;min-height:280px;justify-content:flex-end;position:relative;overflow:hidden}
+.layout-demo .h1{font-size:var(--s1,64px)}
+.layout-demo .h2{font-size:var(--s2,26px);color:var(--fac)}
+html[data-faction="breach"] .layout-demo .h2{color:#4F8A0C}
+.layout-demo .sup{font-size:17px;max-width:46ch;color:var(--muted)}
+.layout-demo [contenteditable]{outline:none;border-bottom:1px dashed transparent}
+.layout-demo [contenteditable]:focus{border-bottom-color:var(--line)}
+.ctrls{display:grid;gap:18px}
+.ctrls label{display:grid;gap:6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.ctrls output{color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--pulse)}
+.scale-list{display:grid;gap:0;margin-top:40px}
+.scale-list div{display:grid;grid-template-columns:150px minmax(0,1fr) 180px;gap:20px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line)}
+.scale-list .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.scale-list .u{font-size:14px;color:var(--muted)}
+
+/* textures */
+.tex-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tex-board{display:grid;gap:4px;background:var(--shadow);padding:4px}
+.tex-board img{width:100%;display:block;transition:opacity .3s,filter .3s}
+.tex-board[data-show]:not([data-show="all"]) img{opacity:.18;filter:grayscale(1)}
+.tex-board[data-show="focus"] img[data-t="focus"],.tex-board[data-show="breach"] img[data-t="breach"],.tex-board[data-show="adapt"] img[data-t="adapt"],.tex-board[data-show="blueprint"] img[data-t="blueprint"]{opacity:1;filter:none}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:40px}
+.two h3{font-size:16px;margin-bottom:10px}
+.two p{font-size:16px;color:var(--muted)}
+
+/* density */
+.density{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:48px;align-items:start}
+.poster{aspect-ratio:4/5;background:var(--shadow);position:relative;overflow:hidden;color:var(--frost);max-width:100%}
+.poster .lyr{position:absolute;transition:opacity .4s;background-size:cover;pointer-events:none}
+.poster .g1{right:-10%;top:0;width:70%;height:34%;background-image:url(img/tex-adapt.jpg);background-position:70% 50%;mix-blend-mode:screen;transform:skewY(-8deg)}
+html[data-faction="focus"] .poster .g1{background-image:url(img/tex-focus.jpg)}
+html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)}
+.poster .bp{inset:0;background-image:url(img/tex-blueprint.jpg);background-size:200% auto;opacity:0;mix-blend-mode:screen}
+.poster .g2{inset:0;background-image:url(img/tex-breach.jpg),url(img/tex-focus.jpg);background-size:220% 50%,240% 50%;background-position:0 0,40% 100%;background-repeat:no-repeat;mix-blend-mode:screen}
+.poster .marks{inset:0;font-family:var(--text);font-size:9px;letter-spacing:.2em;color:#C9CBDA}
+.poster .marks span{position:absolute}
+.poster .content{position:absolute;left:8%;right:8%;bottom:7%;display:flex;flex-direction:column;gap:10px;z-index:2}
+.poster .content .d{font-size:clamp(34px,4.6vw,52px)}
+.poster .content .d em{font-style:normal;color:var(--fac)}
+.poster .content .sl{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px;letter-spacing:.06em}
+.poster .plogo{position:absolute;left:8%;top:7%;width:46%;z-index:2}
+.poster[data-lv="4"] .content .d,.poster[data-lv="5"] .content .d{text-shadow:0 0 18px var(--fac),0 0 2px #fff}
+.poster[data-lv="5"] .content .d{-webkit-text-stroke:1.5px var(--surge)}
+.dens-ctl{display:grid;gap:22px}
+.meter{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
+.meter i{height:8px;background:var(--line)}
+.meter i.on{background:var(--ink)}
+.meter i.on.bad{background:repeating-linear-gradient(45deg,var(--ink) 0 4px,transparent 4px 7px)}
+.dv{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:28px;text-transform:uppercase}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+.checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px}
+.checks li::before{content:"✓";font-weight:700}
+.checks li.x{color:var(--muted)}
+.checks li.x::before{content:"✕"}
+
+/* imagery & galleries */
+.gal{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.gal figure{margin:0;position:relative;background:var(--shadow);overflow:hidden}
+.gal figure button{display:block;width:100%;padding:0;border:0;background:none}
+.gal img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9;transition:transform .5s}
+.gal figure:hover img{transform:scale(1.03)}
+.gal figcaption{position:absolute;left:0;bottom:0;background:var(--shadow);color:var(--frost);font-family:var(--display);font-stretch:125%;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px 5px}
+.w6{grid-column:span 6}.w4{grid-column:span 4}.w3{grid-column:span 3}.w2{grid-column:span 2}
+.w2 img{height:100%}
+.sense{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+.sense>div{background:var(--frost);padding:32px;display:flex;flex-direction:column;gap:14px}
+.sense h3{font-size:22px}
+.sense .words{display:flex;flex-wrap:wrap;gap:6px}
+.sense .words span{border:1.5px solid var(--ink);padding:4px 10px 3px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.sense p{color:var(--muted);font-size:16px}
+.prod{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:start}
+.prod-img{position:relative;background:var(--shadow)}
+.prod-img img{width:100%;display:block}
+
+/* prompt */
+.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:40px}
+.part{padding:28px;display:flex;flex-direction:column;gap:10px}
+.part.a{background:var(--shadow);color:var(--frost)}
+.part.b{background:var(--frost)}
+.part .d{font-size:22px}
+.part .who{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.7}
+.part p{font-size:15px;opacity:.85}
+details.acc{border-top:1px solid var(--line)}
+details.acc:last-of-type{border-bottom:1px solid var(--line)}
+details.acc summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:16px;align-items:center;padding:20px 0}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary .n{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:20px;color:var(--pulse)}
+details.acc summary .t{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:19px;text-transform:uppercase}
+details.acc summary .s{display:block;font-family:var(--text);font-weight:400;font-size:14px;text-transform:none;color:var(--muted);margin-top:4px}
+details.acc summary .pm{font-size:26px;line-height:1;transition:transform .25s}
+details.acc[open] summary .pm{transform:rotate(45deg)}
+.acc-body{padding:0 0 32px 72px;columns:2 340px;column-gap:40px}
+.acc-body h4{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px;break-after:avoid}
+.acc-body h4:first-child{margin-top:0}
+.acc-body p{font-size:15px;color:#3E3B4F;margin-bottom:10px}
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:start;margin-top:56px}
+.qgroup{margin-bottom:36px}
+.qgroup>h3{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:20px;text-transform:uppercase;display:flex;gap:14px;align-items:baseline}
+.qgroup>h3 span{color:var(--pulse);font-size:15px}
+.qgroup>p{color:var(--muted);font-size:14px;margin:4px 0 14px}
+.q{border-top:1px solid var(--line);padding:16px 0}
+.q label{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;font-weight:600;font-size:16px}
+.q label .qn{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;color:var(--muted);padding-top:3px}
+.q .help{font-size:14px;color:var(--muted);margin:4px 0 10px 46px}
+.q textarea{margin-left:46px;width:calc(100% - 46px);min-height:64px;resize:vertical;border:1.5px solid var(--line);background:var(--paper);padding:10px 12px;font:inherit;font-size:15px;color:var(--ink);border-radius:0}
+.q textarea:focus{border-color:var(--ink);outline:none}
+.q.done label .qn{color:var(--pulse)}
+.q .qchips{margin:0 0 8px 46px;display:flex;flex-wrap:wrap;gap:6px}
+.q .qchips button{border:1.5px solid var(--ink);background:none;padding:4px 10px 3px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.q .qchips button:hover{background:var(--ink);color:var(--paper)}
+.out{position:sticky;top:24px;background:var(--shadow);color:var(--frost);padding:22px;display:flex;flex-direction:column;gap:14px}
+.out .prog{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.out .prog b{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:28px;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--shadow-2)}
+.bar i{display:block;height:100%;background:var(--fac);width:0;transition:width .3s}
+.out pre{margin:0;max-height:340px;overflow:auto;background:var(--shadow-2);padding:14px;font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#C9CBDA}
+.out .btn{border-color:var(--frost);color:var(--frost)}
+.out .btn:hover{background:var(--frost);color:var(--shadow)}
+.out .btn.solid{background:var(--pulse);border-color:var(--pulse);color:#fff}
+.out .status{font-size:13px;color:#8E8AA6;min-height:1.2em}
+.confirm{display:flex;gap:8px;align-items:center;font-size:13px;flex-wrap:wrap}
+
+/* end */
+.end{background:var(--shadow);color:var(--frost);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:flex-end}
+.end .wrap{padding-block:56px;width:100%;position:relative;z-index:1}
+.end h2{font-size:clamp(56px,9vw,120px)}
+.footbar{background:var(--shadow);border-top:1px solid var(--shadow-line);color:#8E8AA6;font-size:13px}
+.footbar .wrap{padding-block:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footbar b{font-family:var(--display);font-stretch:125%;font-weight:900;color:var(--frost);font-size:12px}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:10px 18px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.lb{position:fixed;inset:0;background:rgba(20,19,28,.94);z-index:70;display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb img{max-width:100%;max-height:86vh;object-fit:contain}
+.lb button{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:max(16px,env(safe-area-inset-top,0px));background:var(--frost);border:0;padding:8px 14px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px}
+.lb figcaption{color:var(--frost);text-align:center;margin-top:10px;font-size:14px}
+.lb figure{margin:0;max-width:1400px}
+
+/* responsive */
+@media (max-width:1100px){
+  .swatches{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sw.p{grid-column:span 1;min-height:180px}.sw.p:first-child{grid-column:span 2}
+  .sw.s{grid-column:span 1;min-height:140px}
+  .roles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ratio,.construct,.fac-detail,.density,.prod,.builder,.tester{grid-template-columns:minmax(0,1fr)}
+  .out{position:static}
+  .values{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  :root{--rail:0px}
+  html{scroll-padding-top:70px}
+  .rail{transform:translateX(-100%);transition:transform .3s;width:min(300px,86vw);padding-top:calc(20px + env(safe-area-inset-top,0px))}
+  .rail.open{transform:none}
+  .topbar{display:flex;position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--shadow);align-items:center;justify-content:space-between;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--shadow)}
+  .topbar svg{width:170px;height:auto}
+  .topbar button{background:none;border:1.5px solid var(--frost);color:var(--frost);padding:6px 12px 5px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:11px;letter-spacing:.06em}
+  .scrim{position:fixed;inset:0;background:rgba(20,19,28,.6);z-index:19}
+  .wrap{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+  .row{grid-template-columns:minmax(0,1fr);gap:10px}
+  .comp div{grid-template-columns:minmax(0,1fr);gap:4px}
+  .sec{padding-block:60px 52px}
+  .divider{min-height:340px}
+  .super{width:90%;right:-22%;top:-12%}
+  .misuse{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .typepair,.two,.sense,.parts{grid-template-columns:minmax(0,1fr)}
+  .gal .w2,.gal .w3,.gal .w4{grid-column:span 6}
+  .scale-list div{grid-template-columns:minmax(0,1fr)}
+  .acc-body{padding-left:0;columns:1}
+  details.acc summary{grid-template-columns:40px minmax(0,1fr) auto}
+  .q .help,.q .qchips{margin-left:0}.q textarea{margin-left:0;width:100%}
+}
+@media (max-width:520px){
+  .values{grid-template-columns:minmax(0,1fr)}
+  .emb-grid{grid-template-columns:minmax(0,1fr)}
+  .fac-tab{padding:18px 6px 16px}.fac-tab .nm{font-size:12px}
+  .tcard{padding:22px}
+  .mis b{font-size:11px}
+}
+</style>
+</head>
+<body>
+
+
+<div class="topbar"><svg viewBox="0 0 1343 178" class="logo-frost" aria-label="LOCKNLOAD"></svg><button type="button" id="menuBtn" aria-expanded="false" aria-controls="rail">CONTENTS</button></div>
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="rail" id="rail">
+  <div class="rail-logo"><a href="#top" aria-label="Back to top"><svg viewBox="0 0 1343 178" class="logo-frost"></svg></a></div>
+  <nav id="toc" aria-label="Guideline contents">
+    <div class="ch"><span>01</span>Brand Experience</div>
+    <a href="#offering">Products &amp; Services</a>
+    <a href="#substance">Brand Substance</a>
+    <a href="#positioning">Positioning</a>
+    <a href="#persona">Persona &amp; Voice</a>
+    <div class="ch"><span>02</span>Visual System</div>
+    <a href="#logo">Primary Logo</a>
+    <a href="#emblem">The Emblem</a>
+    <a href="#factions">Faction Emblems</a>
+    <a href="#color">Brand Colors</a>
+    <a href="#type">Typography</a>
+    <a href="#textures">Textures &amp; Patterns</a>
+    <a href="#composition">Composition</a>
+    <a href="#imagery">Imagery</a>
+    <div class="ch"><span>03</span>Customer Experience</div>
+    <a href="#products">The Products</a>
+    <a href="#store">Flagship Store</a>
+    <a href="#senses">Multi-Sensory</a>
+    <a href="#applied">Applied</a>
+    <div class="ch"><span>04</span>Prompt Architecture</div>
+    <a href="#prompt-a">Part A: Permanent</a>
+    <a href="#prompt-b">Part B: Brief Builder</a>
+  </nav>
+  <div class="fswitch">
+    <div class="lbl">View as faction</div>
+    <div class="fbtns" role="group" aria-label="Faction">
+      <button class="fbtn" type="button" data-f="focus" aria-pressed="false"><svg data-emb="focus"></svg>FOCUS</button>
+      <button class="fbtn" type="button" data-f="adapt" aria-pressed="true"><svg data-emb="adapt"></svg>ADAPT</button>
+      <button class="fbtn" type="button" data-f="breach" aria-pressed="false"><svg data-emb="breach"></svg>BREACH</button>
+    </div>
+  </div>
+</aside>
+
+<main id="top">
+  <!-- COVER -->
+  <header class="divider" style="min-height:min(640px,82vh)">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap">
+      <svg viewBox="0 0 1343 178" class="logo-frost" style="width:min(100%,620px);height:auto;margin-bottom:40px" aria-label="LOCKNLOAD"></svg>
+      <h1 class="d" style="font-size:clamp(44px,7.4vw,104px)">Brand<br>Guidelines</h1>
+      <p>The identity, voice, visual system and experience rules for LOCKNLOAD, the premium modular toy blaster system. Use this as the reference for every product, space, campaign and AI-assisted application.</p>
+    </div>
+  </header>
+
+  <!-- 01 -->
+  <section class="divider" aria-labelledby="c1">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap"><div class="num">CHAPTER 01</div><h2 class="d" id="c1">Brand<br>Experience</h2><p>Who LOCKNLOAD is, why it exists, who it serves, and how it sounds.</p></div>
+  </section>
+
+  <section class="sec" id="offering"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">01.1</div><h2 class="d">Products &amp;<br>Services</h2></div></div>
+    <div class="rows">
+      <div class="row"><div class="lab">Brand Name</div><div class="val"><div class="d" style="font-size:28px">LOCKNLOAD</div></div></div>
+      <div class="row"><div class="lab">Core Offerings</div><div class="val"><p class="lead">A premium modular toy blaster system featuring a universal base, interchangeable attachments, and collectible accessories.</p><p>The experience extends beyond the products through interactive retail environments, recreational arenas, and community events.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="substance"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">01.2</div><h2 class="d">Brand<br>Substance</h2></div></div>
+    <div class="rows">
+      <div class="row"><div class="lab">Brand Story</div><div class="val">
+        <p class="lead">Play is more than the products we use. It’s the friendships we form, the challenges we overcome, and the experiences we share.</p>
+        <p>LOCKNLOAD was created to bring people together through a universal modular blaster system that celebrates individuality without sacrificing connection.</p>
+        <p>Inspired by the freedom of building and the excitement of recreational competition, LOCKNLOAD makes it easy to experiment, share, and discover new ways to play.</p>
+        <p>Whether you’re building your own loadout or joining your team for the first time, everyone starts on equal ground.</p>
+      </div></div>
+      <div class="row"><div class="lab">Purpose</div><div class="val"><p>To bring people together through shared experiences that inspire creativity, camaraderie, and the excitement of play.</p></div></div>
+      <div class="row"><div class="lab">Mission</div><div class="val"><p>To create accessible, customizable play experiences that encourage creativity, teamwork, and meaningful connections through friendly competition.</p></div></div>
+      <div class="row"><div class="lab">Vision</div><div class="val"><p>A world where play brings people together, individuality is celebrated, and everyone has the freedom to participate.</p></div></div>
+      <div class="row"><div class="lab">Values</div><div class="val" style="max-width:none">
+        <div class="values">
+          <div class="value"><span class="ix">V1</span><h3 class="d">Camaraderie</h3><p>Teamwork, connection, and shared experiences.</p></div>
+          <div class="value"><span class="ix">V2</span><h3 class="d">Self&#8209;Expression</h3><p>Individuality through customization, experimentation, and personal playstyles.</p></div>
+          <div class="value"><span class="ix">V3</span><h3 class="d">Sportsmanship</h3><p>Fair competition, mutual respect, and positive interaction.</p></div>
+          <div class="value"><span class="ix">V4</span><h3 class="d">Longevity</h3><p>Durable products, lasting relationships, and a modular system that evolves with its players.</p></div>
+        </div>
+      </div></div>
+      <div class="row"><div class="lab">Guiding Principle</div><div class="val"><p class="rule"><b>Every application reinforces the relationship between individuality and connection.</b> Never portray competition as hostility, customization as exclusivity, or individuality as separation from the community. Personalization is never a requirement for belonging or an automatic competitive advantage.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="positioning"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">01.3</div><h2 class="d">Brand<br>Positioning</h2></div></div>
+    <div class="rows">
+      <div class="row"><div class="lab">Audience</div><div class="val">
+        <p class="lead">Preteens, teenagers, and young adults seeking creative, customizable, and socially engaging play experiences.</p>
+        <p>LOCKNLOAD appeals to casual players and dedicated enthusiasts alike, offering an approachable entry point with opportunities for deeper personalization, collecting, and recreational competition.</p>
+        <p>Participation can begin without product ownership: official rental kits and timed arena sessions welcome newcomers. Solo visitors, friend groups, private parties, and organized teams all have a way in.</p>
+      </div></div>
+      <div class="row"><div class="lab">Market &amp; Competition</div><div class="val" style="max-width:none">
+        <div class="comp">
+          <div><b>LEGO</b><span>Modular construction, creative freedom, premium quality, and collectible systems.</span></div>
+          <div><b>Nerf</b><span>Recreational toy blasters, competitive play, and enthusiast communities.</span></div>
+          <div><b>Laser Tag / Recreational Arenas</b><span>Organized competition, teamwork, and social experiences.</span></div>
+        </div>
+      </div></div>
+      <div class="row"><div class="lab">Unique Value Proposition</div><div class="val">
+        <p class="lead">Unlike traditional toy blasters with fixed configurations, LOCKNLOAD offers a universal modular system that allows players to customize, exchange, and experiment with attachments using the same foundational platform.</p>
+        <p>By combining premium product design with accessible customization and community-driven experiences, LOCKNLOAD encourages individuality while bringing players together through shared play.</p>
+      </div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="persona"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">01.4</div><h2 class="d">Persona<br>&amp; Voice</h2></div></div>
+    <div class="rows">
+      <div class="row"><div class="lab">Personality</div><div class="val" style="max-width:none">
+        <div class="chips" style="margin-bottom:16px"><span class="chip">Bold</span><span class="chip">Inventive</span><span class="chip">Energetic</span><span class="chip">Expressive</span></div>
+        <p style="max-width:64ch">LOCKNLOAD combines the confidence of competitive gaming culture with the imagination and accessibility of traditional play.</p>
+      </div></div>
+      <div class="row"><div class="lab">Behavior &amp; Interaction</div><div class="val" style="max-width:none">
+        <div class="chips" style="margin-bottom:16px"><span class="chip alt">Interactive</span><span class="chip alt">Collaborative</span><span class="chip alt">Encouraging</span></div>
+        <p style="max-width:64ch">LOCKNLOAD invites players to share ideas, experiment with different builds, and connect through recreational competition.</p>
+      </div></div>
+      <div class="row"><div class="lab">Tone &amp; Manner</div><div class="val" style="max-width:none">
+        <p style="max-width:64ch;margin-bottom:20px">LOCKNLOAD communicates with enthusiasm and familiarity, encouraging players to challenge themselves, support their teammates, and enjoy the experience. Language is direct, engaging, and action-oriented.</p>
+        <div class="pairs">
+          <div class="pair"><span class="yes">Competitive</span><span class="no">without <s>aggression</s></span></div>
+          <div class="pair"><span class="yes">Playful</span><span class="no">without feeling <s>childish</s></span></div>
+          <div class="pair"><span class="yes">Futuristic</span><span class="no">without feeling <s>emotionally distant</s></span></div>
+          <div class="pair"><span class="yes">Expressive</span><span class="no">without <s>unnecessary complexity</s></span></div>
+          <div class="pair"><span class="yes">Encouraging</span><span class="no">without sounding <s>overly sentimental</s></span></div>
+          <div class="pair"><span class="yes">Exciting</span><span class="no">without becoming <s>aggressive</s></span></div>
+        </div>
+      </div></div>
+      <div class="row"><div class="lab">Messaging</div><div class="val" style="max-width:none">
+        <p style="max-width:64ch;margin-bottom:20px">LOCKNLOAD encourages players to come together, find their playstyle, and embrace the excitement of shared experiences. The phrase “LOCK IN” or “LOCKNLOAD” itself serves as a recognizable call to action, encouraging players to focus, participate, and come together through play.</p>
+        <div class="cta-demo"><div class="d">Lock <em>in.</em></div><span style="font-size:14px;color:#C9CBDA;max-width:34ch">The brand’s call to action: preparation, participation, and shared excitement.</span></div>
+      </div></div>
+    </div>
+  </div></section>
+
+  <!-- 02 -->
+  <section class="divider" aria-labelledby="c2">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap"><div class="num">CHAPTER 02</div><h2 class="d" id="c2">Visual<br>System</h2><p>Futuristic industrial design, expressive street culture, and precise modular geometry. Structure for recognition, expression for energy.</p></div>
+  </section>
+
+  <section class="sec" id="logo"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.1</div><h2 class="d">Primary<br>Logo</h2></div></div>
+    <div class="logo-stack">
+      <div class="panel dark"><span class="tag">On Shadow</span><svg viewBox="0 0 1343 178" class="logo-frost" aria-label="LOCKNLOAD logo on Shadow"></svg></div>
+      <div class="panel light"><span class="tag">On Frost</span><svg viewBox="0 0 1343 178" class="logo-shadow" aria-label="LOCKNLOAD logo on Frost"></svg></div>
+    </div>
+    <div class="rows" style="margin-top:48px">
+      <div class="row"><div class="lab">Usage</div><div class="val"><p>Use the approved logo, wordmark, and emblem exactly as supplied. Preserve the original geometry, proportions, orientation, and negative space. Scale proportionally and keep enough surrounding space for recognition and legibility. Use only authorized variations.</p></div></div>
+      <div class="row"><div class="lab">Never</div><div class="val" style="max-width:none">
+        <div class="misuse" id="misuse"></div>
+      </div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="emblem"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.2</div><h2 class="d">The<br>Emblem</h2></div></div>
+    <div class="emb-grid">
+      <div class="panel dark" style="aspect-ratio:1/1"><svg data-emb="emblem" aria-label="Emblem on Shadow"></svg></div>
+      <div class="panel light" style="aspect-ratio:1/1"><svg data-emb="emblem" aria-label="Emblem on Frost"></svg></div>
+    </div>
+    <div class="construct">
+      <div class="stage" id="stage" data-state="locked" data-mode="plain">
+        <svg viewBox="-40 -40 359 258" id="stageSvg" aria-label="Emblem construction diagram"></svg>
+      </div>
+      <div>
+        <p class="lead" style="margin-bottom:16px">Two mirrored L forms create an N in negative space, tying the name directly to the form.</p>
+        <p style="margin-bottom:14px">The mirrored elements also read as two blasters, side by side, signalling connection, teamwork and shared play. Its interlocking geometry reflects modularity and adaptability while the balanced angular structure conveys stability and perseverance.</p>
+        <p style="margin-bottom:24px">Together, the mark becomes a concise symbol of individual expression, collective strength, and limitless play.</p>
+        <div class="btns">
+          <button class="btn" type="button" id="btnConstruct" aria-pressed="false">Show construction</button>
+          <button class="btn solid" type="button" id="btnLock">Unlock</button>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="factions"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.3</div><h2 class="d">Faction<br>Emblems</h2></div></div>
+    <p style="max-width:64ch;margin-bottom:32px">The faction emblems adapt the original brand mark to represent three distinct playstyles. Each variation adds elements inspired by its blaster configuration, reinforcing individuality and customization within one modular system. Selecting a faction here re-tints this whole guide.</p>
+    <div class="fac-tabs" role="group" aria-label="Choose faction">
+      <button class="fac-tab" type="button" data-f="focus" aria-pressed="false"><svg data-emb="focus"></svg><span class="nm">FOCUS</span></button>
+      <button class="fac-tab" type="button" data-f="adapt" aria-pressed="true"><svg data-emb="adapt"></svg><span class="nm">ADAPT</span></button>
+      <button class="fac-tab" type="button" data-f="breach" aria-pressed="false"><svg data-emb="breach"></svg><span class="nm">BREACH</span></button>
+    </div>
+    <div class="fac-detail">
+      <div>
+        <div class="d" id="facName"><em></em>Adapt</div>
+        <p class="lead" id="facLine" style="margin-top:14px"></p>
+        <div class="spec">
+          <div><span>Color</span><span id="facColor"></span></div>
+          <div><span>Detail</span><span id="facDetail"></span></div>
+          <div><span>Represents</span><span id="facRep"></span></div>
+        </div>
+        <p class="rule" style="margin-top:22px">Each faction keeps its assigned <b>color, name, emblem and meaning</b>. Faction applications may lean on their color and graphics but must stay recognizable as LOCKNLOAD.</p>
+      </div>
+      <div class="prod-img"><img id="facImg" src="img/box-adapt.jpg" alt="VOLT modular blaster packaging, Adapt edition"></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="color"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.4</div><h2 class="d">Brand<br>Colors</h2></div></div>
+    <div class="swatches" id="swatches"></div>
+    <p class="note" style="margin-top:12px">Select a swatch to copy its HEX value.</p>
+    <div class="roles">
+      <div><b>Pulse</b>Creative energy and self-expression. The primary brand identifier.</div>
+      <div><b>Shadow</b>Anchors the system with a grounded, modular, industrial tone.</div>
+      <div><b>Frost</b>Clarity and accessibility. Clean, cool-toned contrast.</div>
+      <div><b>Ignition</b>Momentum and friendly competition. The Focus faction color.</div>
+      <div><b>Surge</b>Tactical energy and motion. The Breach faction color.</div>
+    </div>
+    <p class="rule" style="margin-top:32px">Use these five colors <b>exclusively, at their exact values</b>. Lead with Pulse, support with Shadow and Frost, and apply Ignition and Surge with purpose, especially for faction work. No added brand colors and no approximate shades.</p>
+    <div class="ratio">
+      <div>
+        <h3 class="d" style="font-size:20px;margin-bottom:8px">Contrast pairings</h3>
+        <p class="note" style="margin-bottom:18px">WCAG contrast ratio for every text/background pair in the palette. Select a cell to preview it.</p>
+        <div class="mx-wrap"><table class="mx" id="mx"></table></div>
+      </div>
+      <div>
+        <div class="prev" id="prev"><div class="d">Lock in.</div><p>Find your playstyle and join your team. Everyone starts on equal ground.</p></div>
+        <div class="verdict" id="verdict"></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="type"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.5</div><h2 class="d">Typography</h2></div></div>
+    <div class="typepair">
+      <div class="tcard dk">
+        <span class="role">Primary · Display</span>
+        <div class="d big">BC Barell</div>
+        <div class="d glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789 &amp;!?.,</div>
+        <p style="font-size:15px;color:#C9CBDA">Extended Black. Headlines, prominent messaging, and branded statements. Confident, bold, energetic.</p>
+      </div>
+      <div class="tcard lt">
+        <span class="role">Secondary · Supporting</span>
+        <div class="tbig">Address Sans Pro</div>
+        <div class="glyphs">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789</div>
+        <p style="font-size:15px;color:var(--muted)">Body copy, supporting information, descriptions, and functional communication. Clear, accessible, readable.</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px" id="fontNote">Web preview: if BC Barell and Address Sans Pro are installed on this computer they render here automatically. Otherwise this page shows provisional stand-ins (Archivo Expanded and Saira Semi Condensed), which are not approved brand fonts.</p>
+    <div class="scale-list">
+      <div><span class="k">Display 1</span><span class="d" style="font-size:clamp(34px,5vw,64px)">Lock in</span><span class="u">BC Barell · largest headline</span></div>
+      <div><span class="k">Display 2</span><span class="d" style="font-size:clamp(20px,2.4vw,28px)">Play together</span><span class="u">BC Barell · secondary statement</span></div>
+      <div><span class="k">Support</span><span style="font-size:17px">Drop in, gear up, and play with your team. Rental kits available.</span><span class="u">Address Sans Pro · body</span></div>
+    </div>
+    <div class="tester">
+      <div class="layout-demo" id="ldemo">
+        <div class="d h1" contenteditable="true" spellcheck="false" aria-label="Editable headline">Arena<br>Open Play</div>
+        <div class="d h2" contenteditable="true" spellcheck="false" aria-label="Editable statement">Play together</div>
+        <div class="sup" contenteditable="true" aria-label="Editable supporting line">Drop in. Gear up. Rental kits and timed sessions welcome newcomers.</div>
+      </div>
+      <div class="ctrls">
+        <p style="font-size:15px">Default to <b>left-aligned type</b> on a consistent grid, with at most <b>two BC Barell sizes</b> and <b>one Address Sans Pro size</b> per composition. Hierarchy comes from size, weight, spacing and placement, never from extra typefaces, outlines or glow.</p>
+        <label for="s1">Display 1 size <output id="o1">64px</output><input type="range" id="s1" min="36" max="96" value="64"></label>
+        <label for="s2">Display 2 size <output id="o2">26px</output><input type="range" id="s2" min="16" max="48" value="26"></label>
+        <p class="note">Text in the sample is editable. Display 2 is held below 75% of Display 1 to keep a clear two-step hierarchy.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="textures"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.6</div><h2 class="d">Textures &amp;<br>Patterns</h2></div></div>
+    <p style="max-width:64ch;margin-bottom:28px">LOCKNLOAD’s graphic language blends graffiti paint textures with technical blueprint patterns. The energetic streaks signal self-expression and energy, while the blueprints highlight invention and modular design. Each faction has its own color and treatment, which celebrates different playstyles but keeps everything part of one shared system.</p>
+    <div class="tex-filter" role="group" aria-label="Filter textures">
+      <button class="btn" type="button" data-t="all" aria-pressed="true">All</button>
+      <button class="btn" type="button" data-t="focus" aria-pressed="false">Focus</button>
+      <button class="btn" type="button" data-t="breach" aria-pressed="false">Breach</button>
+      <button class="btn" type="button" data-t="adapt" aria-pressed="false">Adapt</button>
+      <button class="btn" type="button" data-t="blueprint" aria-pressed="false">Blueprint</button>
+    </div>
+    <div class="tex-board" id="texBoard" data-show="all">
+      <img data-t="focus" src="img/tex-focus.jpg" alt="Focus graffiti textures in Ignition orange">
+      <img data-t="breach" src="img/tex-breach.jpg" alt="Breach graffiti textures in Surge green">
+      <img data-t="adapt" src="img/tex-adapt.jpg" alt="Adapt graffiti textures in Pulse violet">
+      <img data-t="blueprint" src="img/tex-blueprint.jpg" alt="Technical blueprint grids and patterns">
+    </div>
+    <div class="two">
+      <div><h3 class="d">Graffiti paint</h3><p>Movement, energy, individuality and self-expression through expressive paint treatments and dynamic forms. Faction colors apply only to their own treatments.</p></div>
+      <div><h3 class="d">Technical blueprint</h3><p>Modularity, customization, engineering and structural precision through organized geometric detail. Never arbitrary technical markings or unrelated motifs.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="composition"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.7</div><h2 class="d">Composition<br>&amp; Restraint</h2></div></div>
+    <p style="max-width:64ch;margin-bottom:36px">Minimal, clean industrial composition is the default. Street-culture graphics are controlled accents, not an instruction to fill space. One clear focal point, open negative space, few graphic layers. Drag the slider to see where a layout stops working.</p>
+    <div class="density">
+      <div class="poster" id="poster" data-lv="2">
+        <div class="lyr g1"></div><div class="lyr bp"></div><div class="lyr g2"></div>
+        <div class="lyr marks"><span style="left:62%;top:46%">SEC-04 // GRID</span><span style="left:8%;top:40%">MOD.UNIT 2.1</span><span style="left:58%;top:62%">// SCAN 07</span><span style="left:70%;top:30%">X-114</span></div>
+        <svg class="plogo logo-frost" viewBox="0 0 1343 178" aria-hidden="true"></svg>
+        <div class="content">
+          <div class="d">Arena<br><em>Open Play</em></div>
+          <div class="sl">Drop in. Gear up. Play together.</div>
+        </div>
+      </div>
+      <div class="dens-ctl">
+        <label for="dens" style="display:grid;gap:8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)">Visual density
+          <input type="range" id="dens" min="1" max="5" value="2">
+        </label>
+        <div class="meter" id="meter"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="dv" id="dv"></div>
+        <p id="dd" style="color:var(--muted)"></p>
+        <ul class="checks" id="checks"></ul>
+        <div style="border-top:1px solid var(--line);padding-top:18px">
+          <div class="kicker">Copy economy</div>
+          <p style="font-size:15px">One short headline, one concise supporting line, one clear call to action, and only necessary logistics. Never invent schedules, locations, URLs or registration details. Use marked placeholders.</p>
+        </div>
+      </div>
+    </div>
+    <div class="rows" style="margin-top:56px">
+      <div class="row"><div class="lab">Grid &amp; Layout</div><div class="val"><p>Intentional alignment, consistent spacing, and clear relationships. Modular grids echo the interchangeable product platform. Layouts may be asymmetrical and dynamic, but always sit on a deliberate structure.</p></div></div>
+      <div class="row"><div class="lab">Scale</div><div class="val"><p>Large environmental graphics prioritize immediate recognition; small applications prioritize legibility and essential information. If a format can’t hold an asset without compromising it, request an approved variation.</p></div></div>
+      <div class="row"><div class="lab">Motion</div><div class="val"><p>Responsive, energetic, purposeful. Transitions may reference mechanical assembly, modular connections, directional movement, or the rhythm of competitive play. Movement supports the message, never decoration alone.</p></div></div>
+      <div class="row"><div class="lab">Accessibility</div><div class="val"><p>Sufficient contrast, legible type, recognizable navigation and intuitive interaction. Visual expression never compromises function.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="imagery"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">02.8</div><h2 class="d">Imagery &amp;<br>Materials</h2></div></div>
+    <div class="gal" style="margin-bottom:40px">
+      <figure class="w4"><button type="button" data-lb="img/wayfinding.jpg" data-cap="Arena wayfinding: wide environmental view, readable architecture"><img src="img/wayfinding.jpg" alt="Arena concourse with LOCKNLOAD wayfinding signage"></button><figcaption>Wide &amp; candid</figcaption></figure>
+      <figure class="w2"><button type="button" data-lb="img/poster.jpg" data-cap="Arena Open Play poster in the flagship store"><img src="img/poster.jpg" alt="Arena Open Play poster on a concrete column" style="aspect-ratio:auto"></button><figcaption>Real materials</figcaption></figure>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="lab">Photographic Realism</div><div class="val"><p>Believable arena lighting, restrained saturation, natural contrast and physical materials. Avoid excessive neon, bloom, unrealistic luminous surfaces and theatrical sci-fi color casts. For arena imagery, favor wider environmental compositions with candid, naturally motion-blurred participants over posed close-ups, and keep the architecture readable.</p></div></div>
+      <div class="row"><div class="lab">Materials</div><div class="val"><div class="chips" style="margin-bottom:14px"><span class="chip alt">Metal</span><span class="chip alt">Concrete</span><span class="chip alt">Rubber</span><span class="chip alt">Synthetic surfaces</span></div><p>Industrial materials signal durability, functionality and engineered quality, never deterioration or neglect. Balance them with expressive graphics, vibrant color, and evidence of human activity.</p></div></div>
+      <div class="row"><div class="lab">Product Fidelity</div><div class="val"><p>Show products with realistic proportions and believable construction. Preserve the supplied blaster designs and attachment systems. Do not invent or alter configurations without authorization.</p></div></div>
+    </div>
+  </div></section>
+
+  <!-- 03 -->
+  <section class="divider" aria-labelledby="c3">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap"><div class="num">CHAPTER 03</div><h2 class="d" id="c3">Customer<br>Experience</h2><p>The products, the spaces, and how LOCKNLOAD feels in person.</p></div>
+  </section>
+
+  <section class="sec" id="products"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">03.1</div><h2 class="d">The<br>Products</h2></div></div>
+    <div class="prod">
+      <div>
+        <div class="tex-filter" role="group" aria-label="Packaging edition" id="prodTabs">
+          <button class="btn" type="button" data-f="focus" aria-pressed="false">Focus</button>
+          <button class="btn" type="button" data-f="adapt" aria-pressed="true">Adapt</button>
+          <button class="btn" type="button" data-f="breach" aria-pressed="false">Breach</button>
+        </div>
+        <div class="prod-img"><button type="button" id="prodBtn" style="display:block;border:0;padding:0;background:none;width:100%" data-lb="img/box-adapt.jpg" data-cap="VOLT modular blaster system packaging"><img id="prodImg" src="img/box-adapt.jpg" alt="VOLT modular blaster system packaging, Adapt edition"></button></div>
+      </div>
+      <div class="rows" style="gap:28px">
+        <div class="row" style="grid-template-columns:minmax(0,1fr);gap:8px"><div class="lab">Blaster System</div><div class="val"><p>The modular blaster system, <b>VOLT</b>, is the base blaster for all players. It can be used by itself or with added attachments for personalized play styles.</p></div></div>
+        <div class="row" style="grid-template-columns:minmax(0,1fr);gap:8px"><div class="lab">Faction Attachments</div><div class="val"><p>Interlocking pieces themed to one of three factions (FOCUS, BREACH, or ADAPT) are specialized for different styles of play. Because the attachments are modular, players can tune their blasters to their needs: mixing and matching, trading, and testing endless combinations.</p></div></div>
+        <div class="row" style="grid-template-columns:minmax(0,1fr);gap:8px"><div class="lab">Modular Parts</div><div class="val"><div class="chips"><span class="chip alt">Stock</span><span class="chip alt">Barrel</span><span class="chip alt">Magazine</span><span class="chip alt">Scope</span><span class="chip alt">Muzzle</span></div></div></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="store"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">03.2</div><h2 class="d">Flagship<br>Store</h2></div></div>
+    <div class="gal" style="margin-bottom:40px">
+      <figure class="w6"><button type="button" data-lb="img/store.jpg" data-cap="LOCKNLOAD flagship store with in-store arena"><img src="img/store.jpg" alt="Flagship store interior with blaster walls and a glass-walled arena" style="aspect-ratio:21/9"></button><figcaption>Flagship interior</figcaption></figure>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="lab">Spatial Experience</div><div class="val"><p class="lead">Branded wall murals, concrete futuristic architecture, and walls of blaster arsenals ready for play.</p><p>Within the building is an in-store arena where guests test, play, and challenge one another in a community setting. The arena is visible from anywhere inside the store, encouraging players to get in on the action.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="senses"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">03.3</div><h2 class="d">Multi-<br>Sensory</h2></div></div>
+    <div class="sense">
+      <div><h3 class="d">Sound</h3><div class="words"><span>Footsteps on concrete</span><span>Rushing air</span><span>Foam bursts</span><span>Match buzzers</span><span>Callouts</span><span>Cheers</span></div>
+        <p>The rhythmic echo of quick footsteps against concrete, the rush of air as players round corners, and the sharp, satisfying bursts of foam blasters firing. Match buzzers cut through the arena as teammates exchange callouts, encouragement, and cheers. Together, these sounds capture the adrenaline of friendly competition and the energy of a team working as one.</p></div>
+      <div><h3 class="d">Smell</h3><div class="words"><span>Cool metal</span><span>Aerosol paint</span><span>Fresh rubber</span><span>Synthetic foam</span></div>
+        <p>The cool, metallic scent of industrial machinery blends with subtle traces of aerosol paint, fresh rubber, and synthetic foam. Clean yet rugged, these scents evoke a futuristic, urban environment where creativity meets engineered precision, balancing the raw energy of street culture with the innovation of modern play.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="applied"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">03.4</div><h2 class="d">Applied</h2></div></div>
+    <p style="max-width:64ch;margin-bottom:28px">Applications generated through the Prompt Architecture in Chapter 04. Select any image to enlarge it.</p>
+    <div class="gal">
+      <figure class="w3"><button type="button" data-lb="img/welcome-kit.jpg" data-cap="Member welcome kit: “Welcome to the Squad”"><img src="img/welcome-kit.jpg" alt="Member welcome kit box with founder card"></button><figcaption>Welcome kit</figcaption></figure>
+      <figure class="w3"><button type="button" data-lb="img/member-cards.jpg" data-cap="Membership cards: Founder, Elite and Standard tiers"><img src="img/member-cards.jpg" alt="Founder, Elite and Standard membership cards with member guide"></button><figcaption>Membership</figcaption></figure>
+      <figure class="w4"><button type="button" data-lb="img/wayfinding.jpg" data-cap="Arena wayfinding: retail, equipment rentals, registration"><img src="img/wayfinding.jpg" alt="Arena wayfinding signage"></button><figcaption>Wayfinding</figcaption></figure>
+      <figure class="w2"><button type="button" data-lb="img/poster.jpg" data-cap="Arena Open Play poster"><img src="img/poster.jpg" alt="Arena Open Play poster"></button><figcaption>Poster</figcaption></figure>
+    </div>
+  </div></section>
+
+  <!-- 04 -->
+  <section class="divider" aria-labelledby="c4">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap"><div class="num">CHAPTER 04</div><h2 class="d" id="c4">Prompt<br>Architecture</h2><p id="introP"></p></div>
+  </section>
+
+  <section class="sec" id="prompt-a"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">04.1</div><h2 class="d">Part A:<br>Permanent</h2></div></div>
+    <div class="parts">
+      <div class="part a"><span class="who">Defined by the Design Department</span><div class="d">Part A · Fixed</div><p>The brand’s identity, principles and design rules. Applies to every project and is never edited per brief.</p></div>
+      <div class="part b"><span class="who">Defined by the Project Owner</span><div class="d">Part B · Flexible</div><p>A 21-question brief that sets the application, creative direction and deliverables for one project.</p></div>
+    </div>
+    <div id="partA"></div>
+  </div></section>
+
+  <section class="sec" id="prompt-b"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">04.2</div><h2 class="d">Part B:<br>Brief Builder</h2></div></div>
+    <p style="max-width:64ch">Answer the questionnaire below. No design expertise is needed; write N/A where a question doesn’t apply. The panel assembles Part A, your answers and the AI execution instructions into one prompt ready to paste. Answers are kept in this browser only.</p>
+    <div class="builder">
+      <div id="partB"></div>
+      <aside class="out" aria-label="Compiled prompt">
+        <div class="prog"><span>Questions answered</span><b id="cnt">0/21</b></div>
+        <div class="bar"><i id="barI"></i></div>
+        <pre id="preview" tabindex="0"></pre>
+        <div class="btns">
+          <button class="btn solid" type="button" id="copyAll">Copy full prompt</button>
+          <button class="btn" type="button" id="copyB">Copy answers only</button>
+          <button class="btn" type="button" id="clearB">Clear</button>
+        </div>
+        <div class="confirm" id="confirmBox" hidden><span>Clear all 21 answers?</span><button class="btn" type="button" id="clearYes">Yes, clear</button><button class="btn" type="button" id="clearNo">Keep</button></div>
+        <div class="status" id="status" role="status"></div>
+      </aside>
+    </div>
+  </div></section>
+
+  <section class="end" aria-label="Closing">
+    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+    <div class="wrap"><h2 class="d">Lock N.</h2></div>
+  </section>
+  <div class="footbar"><div class="wrap"><span>GDVX780 Special Topics &nbsp;|&nbsp; Brand Experience · Prompt as a Design System</span><span>Spencer Wilcox &nbsp;|&nbsp; <b>LOCKNLOAD</b> &nbsp;|&nbsp; Fall 2026</span></div></div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="lb" id="lb" hidden><figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure><button type="button" id="lbClose">CLOSE ✕</button></div>
+
+<script>
+const ASSETS={"wordL": ["M 0 47.84 L 25.33 47.84 L 25.33 106.56 L 111.67 106.56 L 111.67 128.43 L 0 128.43 Z M 0 47.84", "M 120.95 88.14 C 120.95 59.35 131.3 47.84 152.03 47.84 L 216.49 47.84 C 237.22 47.84 247.58 59.35 247.58 88.14 C 247.58 116.92 237.22 128.43 216.49 128.43 L 152.03 128.43 C 131.3 128.43 120.95 116.92 120.95 88.14 M 219.95 88.14 C 219.95 72.6 217.65 69.72 209.59 69.72 L 158.94 69.72 C 150.88 69.72 148.57 72.6 148.57 88.14 C 148.57 103.68 150.88 106.56 158.94 106.56 L 209.59 106.56 C 217.65 106.56 219.95 103.68 219.95 88.14", "M 259.75 88.14 C 259.75 59.35 270.1 47.84 290.83 47.84 L 355.29 47.84 C 373.6 47.84 384.19 56.82 386.03 80.08 L 358.41 80.08 C 357.6 71.32 354.49 69.72 348.39 69.72 L 297.74 69.72 C 289.68 69.72 287.37 72.6 287.37 88.14 C 287.37 103.68 289.68 106.56 297.74 106.56 L 348.39 106.56 C 354.49 106.56 357.6 104.94 358.41 96.19 L 386.03 96.19 C 384.3 119.44 373.6 128.43 355.29 128.43 L 290.83 128.43 C 270.1 128.43 259.75 116.92 259.75 88.14", "M 477.63 98.5 L 427.89 98.5 L 427.89 128.43 L 401.42 128.43 L 401.42 47.84 L 427.89 47.84 L 427.89 76.62 L 477.63 76.62 C 482.7 76.62 484.42 74.32 485.57 70.86 L 492.83 47.84 L 519.99 47.84 L 511.36 75.01 C 509.18 81.91 506.99 86.06 499.5 87.44 C 507.91 88.82 509.87 92.85 512.16 100.11 L 521.14 128.43 L 493.52 128.43 L 485.92 104.25 C 484.89 100.79 482.82 98.5 477.63 98.5"], "wordR": ["M 825.2 47.84 L 850.52 47.84 L 850.52 106.56 L 936.86 106.56 L 936.86 128.43 L 825.2 128.43 Z M 825.2 47.84", "M 946.14 88.14 C 946.14 59.35 956.5 47.84 977.22 47.84 L 1041.69 47.84 C 1062.41 47.84 1072.77 59.35 1072.77 88.14 C 1072.77 116.92 1062.41 128.43 1041.69 128.43 L 977.22 128.43 C 956.5 128.43 946.14 116.92 946.14 88.14 M 1045.14 88.14 C 1045.14 72.6 1042.84 69.72 1034.78 69.72 L 984.13 69.72 C 976.07 69.72 973.76 72.6 973.76 88.14 C 973.76 103.68 976.07 106.56 984.13 106.56 L 1034.78 106.56 C 1042.84 106.56 1045.14 103.68 1045.14 88.14", "M 1115.79 47.84 L 1168.05 47.84 L 1208.69 128.43 L 1178.76 128.43 L 1171.39 112.89 L 1111.64 112.89 L 1103.93 128.43 L 1075.15 128.43 Z M 1160.91 91.01 L 1150.78 69.72 L 1132.83 69.72 L 1122.35 91.01 Z M 1160.91 91.01", "M 1219.13 47.84 L 1311.23 47.84 C 1331.95 47.84 1342.32 59.35 1342.32 88.14 C 1342.32 116.91 1331.95 128.43 1311.23 128.43 L 1219.13 128.43 Z M 1314.68 88.14 C 1314.68 72.6 1312.37 69.72 1304.32 69.72 L 1245.61 69.72 L 1245.61 106.56 L 1304.32 106.56 C 1312.37 106.56 1314.68 103.68 1314.68 88.14"], "emblemInLogo": ["M 679.64 87 L 742.53 48.08 L 669.14 -0 L 527.82 87.44 L 572.94 115.73 L 630.19 59.85 C 643.32 46.7 658.7 34.82 664.93 51.76 Z M 679.64 87", "M 646.42 85.02 L 583.54 123.93 L 669.13 177.6 L 806.5 87.44 L 753.13 56.28 L 695.88 112.17 C 682.75 125.32 667.37 137.19 661.14 120.26 Z M 646.42 85.02"], "logoBox": [0, 0, 1342.4, 177.6], "emblem": ["M 151.83 87 L 214.72 48.08 L 141.33 -0 L 0.01 87.44 L 45.13 115.73 L 102.38 59.85 C 115.51 46.7 130.89 34.82 137.12 51.76 Z M 151.83 87", "M 118.61 85.02 L 55.73 123.93 L 141.32 177.6 L 278.69 87.44 L 225.32 56.28 L 168.07 112.17 C 154.94 125.32 139.56 137.19 133.33 120.26 Z M 118.61 85.02"], "emblemBox": [0, 0, 278.7, 177.6], "focus": ["M 151.83 87 L 214.71 48.08 L 141.32 0 L 0 87.44 L 45.12 115.73 L 102.37 59.85 C 115.5 46.7 130.88 34.82 137.11 51.76 Z M 151.83 87", "M 118.6 85.02 L 55.72 123.93 L 141.32 177.6 L 278.69 87.44 L 225.31 56.29 L 168.06 112.17 C 154.93 125.32 139.55 137.19 133.32 120.26 Z M 118.6 85.02", "M 124.46 0 L 94.04 0 L 36.66 33.04 L 54.28 42.73 Z M 124.46 0", "M 163.57 177.6 L 193.51 177.6 L 249.71 140.46 L 231.66 131.62 Z M 163.57 177.6"], "focusBox": [0, 0, 278.7, 177.6], "adapt": ["M 122.41 177.6 L 90.14 177.6 L 32.06 139.21 L 49.68 129.53 Z M 122.41 177.6", "M 156.9 0.03 L 189.17 0.03 L 240.2 33 L 222.59 42.69 Z M 156.9 0.03", "M 125.74 0 L 95.33 0 L 37.96 33.03 L 55.58 42.72 Z M 125.74 0", "M 162.37 177.6 L 192.3 177.6 L 248.5 140.47 L 230.44 131.62 Z M 162.37 177.6", "M 151.8 87.01 L 214.68 48.11 L 141.29 0.03 L 0 87.46 L 45.11 115.74 L 102.35 59.87 C 115.48 46.72 130.86 34.85 137.08 51.78 Z M 151.8 87.01", "M 118.58 85.04 L 55.71 123.94 L 141.29 177.6 L 278.64 87.46 L 225.27 56.3 L 168.03 112.18 C 154.9 125.33 139.53 137.2 133.3 120.27 Z M 118.58 85.04"], "adaptBox": [0, 0, 278.6, 177.6], "breach": ["M 151.83 86.99 L 214.71 48.08 L 141.32 0 L 0 87.44 L 45.12 115.73 L 102.37 59.85 C 115.5 46.7 130.88 34.82 137.11 51.76 Z M 151.83 86.99", "M 118.6 85.02 L 55.71 123.93 L 141.32 177.6 L 278.68 87.44 L 225.31 56.29 L 168.06 112.17 C 154.93 125.32 139.55 137.19 133.32 120.26 Z M 118.6 85.02", "M 118.86 177.6 L 86.59 177.6 L 28.5 139.2 L 46.12 129.52 Z M 118.86 177.6", "M 159.35 0 L 191.63 0 L 242.67 32.98 L 225.05 42.66 Z M 159.35 0"], "breachBox": [0, 0, 278.7, 177.6]};
+const PROMPT={
+ "intro": [
+  "This prompt establishes a structured design language for generating consistent, recognizable, and immersive brand experiences for LOCKNLOAD. It translates established brand strategy and visual identity into actionable instructions, allowing AI to execute creative applications without independently redefining the brand.",
+  "The system consists of two components. Part A is permanent, establishing the brand\u2019s identity, principles, and design rules. Part B is flexible, guiding users through a questionnaire that defines the specific application, creative direction, and deliverables for each project."
+ ],
+ "A": [
+  {
+   "title": "01. How We Work",
+   "sub": "Rules of Collaboration",
+   "blocks": [
+    [
+     "p",
+     "Human intent directs the creative process; AI handles execution. Follow the established LOCKNLOAD brand strategy, visual identity, and design principles exactly as provided. Use all approved assets without altering their defining characteristics. Do not independently redesign, reinterpret, or introduce new elements into the brand identity. You may arrange and apply existing assets according to the project\u2019s specified requirements, but any modification to their appearance or established usage requires explicit approval."
+    ],
+    [
+     "p",
+     "Treat all supplied brand assets, reference materials, and application examples as authoritative. Preserve the proportions, geometry, typography, colors, and visual characteristics of approved elements. For production-ready outputs, do not substitute, reconstruct, or approximate existing assets. For conceptual visualizations, do not claim exact fidelity when a generator cannot place original artwork or fonts precisely; instead, preserve clearly defined placeholders and flag the required final asset placement. When adapting the identity to new applications, maintain the integrity of the original design system."
+    ],
+    [
+     "p",
+     "If instructions are unclear, incomplete, or conflict with the established brand principles, stop and request clarification before proceeding. Consolidate all necessary questions into a single response rather than making assumptions about significant design decisions. Do not introduce unapproved identity elements or creative directions to compensate for missing information. New application- specific layouts, interfaces, environments, and experiences are permitted when they follow established brand principles and the project brief."
+    ],
+    [
+     "p",
+     "Upon delivery, identify any assumptions made during execution, explain how the application follows the established brand system, and disclose any limitations or deviations from the original instructions."
+    ]
+   ]
+  },
+  {
+   "title": "02. Brand Strategy",
+   "sub": "Semantic Intent, Experience, Principles, and Voice",
+   "blocks": [
+    [
+     "p",
+     "LOCKNLOAD is a premium modular toy blaster, recreational sports, and lifestyle brand built on the belief that play is more than the products people use. It is about the friendships they form, challenges they overcome, and experiences they share. Through a universal modular blaster platform, interchangeable attachments, collectible accessories, and immersive recreational experiences, LOCKNLOAD encourages players to explore their individuality while participating in a connected community."
+    ],
+    [
+     "h",
+     "Purpose and Experience"
+    ],
+    [
+     "p",
+     "LOCKNLOAD exists to bring people together through shared experiences that inspire creativity, camaraderie, and the excitement of play. Its mission is to create accessible, customizable play experiences that encourage teamwork, self-expression, and meaningful connections through friendly competition. Its vision is a world where individuality is celebrated, participation is accessible, and play creates lasting connections. The experience extends beyond the product through interactive retail environments, recreational arenas, organized leagues and tournaments, casual matches, and community events. The products are intended to be used in shared play, not merely collected or displayed. Every application should reinforce the relationship between personal expression and collective participation."
+    ],
+    [
+     "h",
+     "Audience and Positioning"
+    ],
+    [
+     "p",
+     "LOCKNLOAD primarily serves preteens, teenagers, and young adults seeking creative, customizable, and socially engaging play experiences. It appeals to casual players and dedicated enthusiasts alike, providing an approachable entry point with opportunities for deeper personalization, collecting, and recreational competition. The brand occupies a space between traditional toy blasters, modular construction systems, and competitive recreational experiences. Its identity should communicate premium quality and excitement without sacrificing accessibility or inclusivity. Participation can begin without product ownership: official rental kits and timed arena sessions welcome newcomers, while owners may bring approved LOCKNLOAD equipment. Solo visitors, friend groups, private parties, and organized teams should all have ways to participate."
+    ],
+    [
+     "h",
+     "Core Values"
+    ],
+    [
+     "p",
+     "The brand operates around four fundamental values: Camaraderie, Self-Expression, Sportsmanship, and Longevity. Camaraderie emphasizes teamwork, connection, and shared experiences. Self- Expression celebrates individuality through customization, experimentation, and personal playstyles. Sportsmanship promotes fair competition, mutual respect, and positive interaction. Longevity represents durable products, lasting relationships, and a universal modular system designed to evolve alongside its players. These values must remain consistent across every brand application."
+    ],
+    [
+     "h",
+     "Personality"
+    ],
+    [
+     "p",
+     "LOCKNLOAD is bold, inventive, energetic, and expressive. It combines the confidence of competitive gaming culture with the imagination and accessibility of traditional play. The brand embraces unconventional creativity and individuality while maintaining an approachable, collaborative personality. It should feel exciting without becoming aggressive, futuristic without feeling emotionally distant, and playful without appearing childish. Its personality should be recognizable across physical, digital, spatial, and experiential applications. Draw inspiration from the athletic presentation and spectator energy of esports and organized tag-style competition, without copying any specific league identity or implying combat or hostility."
+    ],
+    [
+     "h",
+     "Voice and Tone"
+    ],
+    [
+     "p",
+     "LOCKNLOAD communicates with confidence, enthusiasm, and familiarity. Its language should be direct, engaging, and action-oriented, encouraging players to challenge themselves, support their teammates, and experiment with new ways to play. Messaging should celebrate both individual achievement and collective success. The tone is competitive without aggression, expressive without unnecessary complexity, and encouraging without sounding overly sentimental. The phrases \u201cLOCKNLOAD\u201d and \u201cLOCK IN\u201d serve as recognizable calls to action, reinforcing preparation, participation, and shared excitement."
+    ],
+    [
+     "h",
+     "Guiding Principle"
+    ],
+    [
+     "p",
+     "Every brand application must reinforce the relationship between individuality and connection. The universal modular system provides a shared foundation, while customization allows each player to develop a distinct identity and approach to play. Do not portray competition as hostility, customization as exclusivity, or individuality as separation from the community. The brand should consistently communicate that players can express themselves, compete fairly, and belong to something larger through a shared experience. Encourage welcoming interactions between newcomers and experienced players. Personalization must not be presented as a requirement for belonging or as an automatic competitive advantage."
+    ]
+   ]
+  },
+  {
+   "title": "03. Visual Principles",
+   "sub": "Primary Visual Identity System",
+   "blocks": [
+    [
+     "p",
+     "LOCKNLOAD\u2019s visual identity combines futuristic industrial design, expressive street culture, and precise modular geometry. Every application must communicate the brand\u2019s bold, inventive, energetic, and expressive personality while maintaining a recognizable and cohesive identity. Balance structured technical elements with dynamic graphic treatments to reflect the relationship between engineered precision and individual creativity. The visual language should feel immersive, contemporary, and energetic without becoming excessively militaristic, visually chaotic, or emotionally detached."
+    ],
+    [
+     "h",
+     "Asset Fidelity Gate"
+    ],
+    [
+     "p",
+     "Before generating, inventory required approved logos, faction emblems, product references, and fonts. If the output method cannot place an asset exactly, do not synthesize a lookalike; reserve a clean placement zone and report that exact compositing is required. Do not claim a fully compliant final design when exact assets are missing."
+    ],
+    [
+     "h",
+     "Logo and Emblem"
+    ],
+    [
+     "p",
+     "Use the approved LOCKNLOAD logo, wordmark, and emblem exactly as supplied. The primary emblem consists of two mirrored L-shaped forms that create an N through negative space, symbolizing the brand\u2019s name, teamwork, connection, and modularity. The mirrored elements also reference two blasters positioned alongside one another. Its angular construction communicates balance, adaptability, and perseverance. Preserve the original geometry, proportions, orientation, and negative space. Do not redraw, distort, rotate, reconstruct, or introduce alternative interpretations of the emblem. Scale the approved artwork proportionally and maintain sufficient surrounding space to ensure recognition and legibility. Use only authorized logo variations."
+    ],
+    [
+     "h",
+     "Typography"
+    ],
+    [
+     "p",
+     "Default to left-aligned typography on a consistent grid. For standard promotional compositions, use at most two BC Barell display sizes and one smaller Address Sans Pro supporting size unless the project explicitly requires more. Keep existing natural kerning and leading; avoid decorative outlines, glow, extra text effects, or competing type treatments. Use BC Barell as the primary display typeface for headlines, prominent messaging, and branded statements. Use Address Sans Pro as the secondary typeface for body copy, supporting information, descriptions, and functional communication. Establish hierarchy through differences in size, weight, spacing, and placement rather than introducing additional typefaces. Display typography should feel confident, bold, and energetic, while supporting typography must remain clear, accessible, and readable. Do not stretch, distort, artificially modify, or substitute the approved typefaces. If the required fonts are unavailable, request the necessary font assets for production work. For conceptual mockups, identify any typography as provisional rather than representing it as the approved font."
+    ],
+    [
+     "h",
+     "Color System"
+    ],
+    [
+     "p",
+     "Use the five established brand colors exclusively, preserving their exact hexadecimal values and intended relationships. Pulse Violet (#9C26F0) is the primary brand color, representing creativity, individuality, and self-expression. Shadow Alloy (#211F2D) provides a deep, purple-tinted foundation that communicates industrial strength and visual depth. Frost Signal (#EEF1F9) provides a clean, cool-toned contrast that reinforces clarity and accessibility. Ignition Orange (#FF7514) represents precision, momentum, and competitive energy, while Surge Green (#91E829) communicates movement, action, and intensity. Use Pulse Violet as the primary visual identifier, supported by Shadow Alloy and Frost Signal. Apply Ignition Orange and Surge Green purposefully, particularly within faction- specific applications. Do not introduce additional brand colors, alter the approved values, or substitute approximate shades. Where gradients, transparency, or lighting effects are required, preserve the identity of the original colors and follow supplied application references."
+    ],
+    [
+     "h",
+     "Faction Identity"
+    ],
+    [
+     "p",
+     "Maintain the three established faction identities: Focus, Adapt, and Breach. Focus uses Ignition Orange and represents accuracy, concentration, and strategic precision. Its emblem incorporates a scope-inspired detail into the original brand mark. Adapt uses Pulse Violet and represents versatility, balance, and flexibility across different playstyles. Its emblem combines the scope-inspired and stock-inspired elements. Breach uses Surge Green and represents close-quarters action, decisive movement, and intensity. Its emblem incorporates a stock-inspired detail. Each faction must retain its assigned color, name, emblem, and conceptual meaning. Use the approved faction artwork without independently modifying its construction. Faction-specific applications may emphasize their respective colors and graphics, but must remain recognizable as part of the universal LOCKNLOAD identity."
+    ],
+    [
+     "h",
+     "Restraint and Visual Density"
+    ],
+    [
+     "p",
+     "Minimal, clean industrial composition is the default; street-culture graphics are controlled accents, not an instruction to fill space. Prioritize one clear focal point, open negative space, and a limited number of graphic layers. Avoid simultaneous heavy graffiti, dense blueprint overlays, decorative marks, and competing captions. Remove any nonessential element that does not improve recognition or communication."
+    ],
+    [
+     "h",
+     "Graphic Language and Textures"
+    ],
+    [
+     "p",
+     "Use the approved graffiti-inspired paint textures and technical blueprint patterns as the foundation of the brand\u2019s graphic language. Graffiti elements communicate movement, energy, individuality, and self-expression through expressive paint treatments and dynamic forms. Technical blueprint graphics communicate modularity, customization, engineering, and structural precision through organized geometric details. Balance these contrasting elements to create compositions that feel expressive yet intentionally constructed. Apply faction-specific colors to their corresponding approved graphic treatments. Use the supplied pattern board and visual references to determine appropriate texture placement, density, scale, and relationships. Do not generate unrelated graffiti styles, arbitrary technical markings, or additional decorative motifs that are not supported by the established visual system."
+    ],
+    [
+     "h",
+     "Photographic Realism"
+    ],
+    [
+     "p",
+     "Favor believable arena lighting, restrained saturation, natural contrast, and physical materials. Avoid excessive neon, bloom, unrealistic luminous surfaces, and theatrical sci-fi color casts. For recreational arena imagery, favor wider environmental compositions with candid, naturally motion- blurred participants rather than posed close-up portraits; retain readable architectural context."
+    ],
+    [
+     "h",
+     "Imagery and Materials"
+    ],
+    [
+     "p",
+     "Present LOCKNLOAD products, environments, and experiences with realistic proportions, believable construction, and intentional lighting. Where appropriate, incorporate industrial materials such as metal, concrete, rubber, and synthetic surfaces to reinforce the brand\u2019s futuristic recreational aesthetic. These materials should communicate durability, functionality, and engineered quality rather than deterioration or neglect. Balance industrial environments with expressive graphics, vibrant colors, and evidence of human activity. Product imagery must preserve the supplied blaster designs, attachment systems, and defining characteristics. Do not invent or alter product configurations unless explicitly authorized."
+    ],
+    [
+     "h",
+     "Approved Assets and References"
+    ],
+    [
+     "p",
+     "Treat all supplied logos, emblems, product designs, typography, color specifications, textures, patterns, and application examples as authoritative components of the visual identity. Use these assets to establish consistency across packaging, apparel, retail environments, recreational arenas, digital experiences, campaigns, and other brand applications. Preserve their defining characteristics and follow the established relationships between visual elements. When an approved identity asset or essential application rule is missing, request clarification rather than inventing a replacement. For exploratory concepts, distinguish proposed application details from approved brand assets."
+    ]
+   ]
+  },
+  {
+   "title": "04. Generative Grammar",
+   "sub": "Rules for Translating Brand Intent into Visual Outcomes",
+   "blocks": [
+    [
+     "p",
+     "LOCKNLOAD\u2019s visual language is built around the relationship between structure and expression. Structured geometry communicates the reliability and precision of the universal modular system, while expressive graphics communicate the individuality and energy of its players. Every application should balance these two qualities, using consistency to establish recognition and controlled variation to create distinction."
+    ],
+    [
+     "h",
+     "Copy Economy"
+    ],
+    [
+     "p",
+     "For promotional applications, default to one short headline, one concise supporting line, one clear call to action, and only necessary logistical details. Do not invent event schedules, locations, URLs, or registration details; use clearly marked placeholders when unspecified."
+    ],
+    [
+     "h",
+     "Hierarchy and Typography"
+    ],
+    [
+     "p",
+     "Establish a clear hierarchy that prioritizes the most important information first. Use BC Barell for prominent brand statements and display typography, and Address Sans Pro for supporting information. Headlines should communicate confidence and energy through scale, weight, and placement. Supporting typography should remain legible, organized, and appropriately spaced. Avoid excessive typographic effects that reduce clarity or compete with the established graphic language. Prioritize the brand mark, primary message, and essential information according to the purpose of the application."
+    ],
+    [
+     "h",
+     "Grid and Layout"
+    ],
+    [
+     "p",
+     "Construct compositions using intentional alignment, consistent spacing, and clear relationships between elements. Where appropriate, modular grid systems should reflect the interchangeable nature of the product platform. Use repetition to establish visual rhythm and consistency, allowing variations in scale, orientation, and content to introduce energy. Layouts may be asymmetrical and dynamic, but should maintain a deliberate underlying structure rather than appearing arbitrary or disorganized. Adapt the grid to the dimensions and functional requirements of each application while preserving consistent relationships between elements."
+    ],
+    [
+     "h",
+     "Composition"
+    ],
+    [
+     "p",
+     "Balance bold visual elements with areas of controlled negative space. Use scale, contrast, proximity, and directional movement to guide attention through the composition. Expressive textures and technical graphics should support the primary subject rather than obscure it. Favor compositions that communicate movement, interaction, and confidence while maintaining clear focal points and visual organization. Avoid unnecessary decoration, excessive layering, or competing focal points that reduce the clarity of the intended message."
+    ],
+    [
+     "h",
+     "Color Application"
+    ],
+    [
+     "p",
+     "Use the established brand palette consistently, allowing Pulse Violet to function as the primary brand identifier. Shadow Alloy and Frost Signal should provide contrast, structure, and visual balance. Introduce Ignition Orange and Surge Green purposefully, particularly when communicating faction identity or emphasizing specific content. When an application represents a particular faction, its corresponding color should establish immediate recognition without compromising the broader LOCKNLOAD identity. Avoid arbitrary color combinations or the use of faction colors in ways that contradict their established meanings."
+    ],
+    [
+     "h",
+     "Graphic Integration"
+    ],
+    [
+     "p",
+     "Combine approved graffiti-inspired textures and technical graphics with intentional hierarchy. Technical elements should reinforce structure, modularity, or product functionality, while expressive textures should introduce movement and personality. Use graphic treatments to support the communication objective rather than as decoration alone. Maintain a balance between expressive and structured elements, allowing each to remain recognizable without overwhelming the composition. Do not invent new faction symbols, graphic motifs, or identity elements without approval."
+    ],
+    [
+     "h",
+     "Consistency and Variation"
+    ],
+    [
+     "p",
+     "Maintain consistent typography, color relationships, logo usage, and graphic principles across all applications. Variation should emerge from the application\u2019s purpose, scale, format, audience, and faction representation rather than from changes to the underlying identity. A product package, arena environment, apparel collection, and digital campaign may differ significantly in composition while remaining recognizable as parts of the same brand. Preserve the relationships between established elements even when their arrangement changes."
+    ],
+    [
+     "h",
+     "Scale and Spatial Relationships"
+    ],
+    [
+     "p",
+     "Adapt the scale of visual elements according to viewing distance, environment, and intended interaction. Large-scale environmental graphics should prioritize immediate recognition and visual impact, while smaller applications should emphasize legibility and essential information. Maintain proportional relationships between logos, typography, graphics, and surrounding space. Do not distort approved assets to accommodate a particular format. If an application cannot accommodate an asset without compromising its integrity, request an alternative arrangement or approved variation."
+    ],
+    [
+     "h",
+     "Movement and Interaction"
+    ],
+    [
+     "p",
+     "Where animation or interaction is appropriate, movement should feel responsive, energetic, and purposeful. Transitions may reference mechanical assembly, modular connections, directional movement, or the rhythm of competitive play. Avoid excessive animation that distracts from communication or reduces usability. Movement should reinforce the experience rather than exist solely as decoration. Interactive elements should provide clear feedback and encourage intuitive participation."
+    ],
+    [
+     "h",
+     "Accessibility and Functionality"
+    ],
+    [
+     "p",
+     "Maintain sufficient contrast, legible typography, recognizable navigation, and intuitive interaction wherever applicable. Visual expression must never compromise functionality or accessibility. Prioritize clarity and usability while preserving the brand\u2019s energetic character. Consider the physical and digital context of each application, ensuring that important information remains understandable across different viewing conditions and interaction methods."
+    ]
+   ]
+  }
+ ],
+ "B": [
+  {
+   "title": "Project Brief",
+   "sub": "Application Context, Audience, and Objectives",
+   "qs": [
+    {
+     "n": "01",
+     "q": "What are we creating?",
+     "help": "Describe the type of brand application you want to develop, such as packaging, apparel, promotional materials, digital content, retail environments, or recreational experiences."
+    },
+    {
+     "n": "02",
+     "q": "What is the primary purpose of this project?",
+     "help": "Explain what the application should accomplish. Consider whether its purpose is to promote a product, communicate information, encourage participation, improve an experience, or achieve another objective."
+    },
+    {
+     "n": "03",
+     "q": "Who is the intended audience?",
+     "help": "Describe the people who will encounter or interact with the application. Consider their age, interests, familiarity with LOCKNLOAD, and any relevant needs or behaviors."
+    },
+    {
+     "n": "04",
+     "q": "Where and how will the application be experienced?",
+     "help": "Identify the physical environment, digital platform, product category, or communication channel where the application will exist. Explain how the audience will encounter or interact with it."
+    },
+    {
+     "n": "05",
+     "q": "What should the audience understand, feel, or do?",
+     "help": "Describe the primary message, intended emotional response, or action the application should encourage."
+    },
+    {
+     "n": "06",
+     "q": "Are there any functional requirements or project constraints?",
+     "help": "Identify any requirements involving usability, accessibility, production, physical environments, materials, budgets, or other limitations that could influence the design."
+    }
+   ]
+  },
+  {
+   "title": "Visual Direction",
+   "sub": "Application-Specific Creative Execution",
+   "qs": [
+    {
+     "n": "07",
+     "q": "What should the overall design look and feel like?",
+     "help": "Describe the intended visual atmosphere, personality, and experiential qualities. Consider how the application should express LOCKNLOAD\u2019s established identity within this particular context."
+    },
+    {
+     "n": "08",
+     "q": "What should be the primary visual focus?",
+     "help": "Identify the product, message, graphic, image, or other element that should receive the most attention. Explain what should be noticed first."
+    },
+    {
+     "n": "09",
+     "q": "Which LOCKNLOAD colors or faction identities should be emphasized?",
+     "help": "Specify whether the application should emphasize the universal brand identity or one or more established factions: Focus, Adapt, and Breach. Identify any preferred color relationships using the approved palette."
+    },
+    {
+     "n": "10",
+     "q": "Which approved brand assets should be incorporated?",
+     "help": "Identify the logos, emblems, typography, graffiti textures, blueprint patterns, product imagery, or other supplied assets required for the application."
+    },
+    {
+     "n": "11",
+     "q": "How should the visual elements be arranged?",
+     "help": "Describe the preferred composition, layout, orientation, alignment, or spatial relationships. Consider how typography, imagery, graphics, and negative space should work together."
+    },
+    {
+     "n": "12",
+     "q": "Are there any specific imagery, materials, or environmental requirements?",
+     "help": "Describe any relevant products, settings, surfaces, materials, lighting conditions, or physical details. Explain how realistic or stylized the final application should appear."
+    },
+    {
+     "n": "13",
+     "q": "Does the application require movement or interaction?",
+     "help": "If applicable, describe any animation, transitions, interactive elements, or user behaviors that should be incorporated into the experience."
+    },
+    {
+     "n": "14",
+     "q": "Are there any visual references or existing applications to follow?",
+     "help": "Provide relevant examples, reference images, or previous LOCKNLOAD applications. Explain which characteristics should inform the new design and which should not."
+    },
+    {
+     "n": "15",
+     "q": "Are there any specific visual treatments or design decisions to avoid?",
+     "help": "Identify any unwanted compositions, effects, treatments, or approaches beyond the restrictions already established in Part A."
+    }
+   ]
+  },
+  {
+   "title": "What I Need From You",
+   "sub": "Deliverables, Specifications, and Execution Requirements",
+   "qs": [
+    {
+     "n": "16",
+     "q": "What specific deliverables should be produced?",
+     "help": "List everything you expect the AI to create, including individual designs, mockups, layouts, visualizations, or supporting materials."
+    },
+    {
+     "n": "17",
+     "q": "What dimensions, formats, or technical specifications are required?",
+     "help": "Provide any required measurements, aspect ratios, resolutions, file formats, production specifications, or platform requirements."
+    },
+    {
+     "n": "18",
+     "q": "Are multiple versions, perspectives, or variations needed?",
+     "help": "Specify any additional views, alternate compositions, faction variations, product configurations, or other versions that should be included."
+    },
+    {
+     "n": "19",
+     "q": "Are there any functional or implementation requirements?",
+     "help": "Describe any technical behaviors, interactive features, production methods, or implementation limitations that the final deliverables must accommodate."
+    },
+    {
+     "n": "20",
+     "q": "How should the final work be presented?",
+     "help": "Explain how you would like the deliverables organized or displayed. Specify whether you need individual files, presentation layouts, realistic mockups, production-ready assets, or another format."
+    },
+    {
+     "n": "21",
+     "q": "What would make the final result successful?",
+     "help": "Describe the most important criteria the completed work must satisfy. Identify any details that are especially important to the project\u2019s success."
+    }
+   ]
+  }
+ ]
+};
+const C={pulse:'#9C26F0',shadow:'#211F2D',frost:'#EEF1F9',ignition:'#FF7514',surge:'#91E829'};
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const P=(arr,fill,extra='')=>`<g fill="${fill}" ${extra}>${arr.map(d=>`<path d="${d}"/>`).join('')}</g>`;
+function logoSVG(word,emb){return P(ASSETS.wordL,word)+P(ASSETS.wordR,word)+P(ASSETS.emblemInLogo,emb)}
+$$('svg.logo-frost').forEach(s=>{s.innerHTML=logoSVG(C.frost,C.pulse)});
+$$('svg.logo-shadow').forEach(s=>{s.innerHTML=logoSVG(C.shadow,C.pulse)});
+const EMB={emblem:[ASSETS.emblem,C.pulse],focus:[ASSETS.focus,C.ignition],adapt:[ASSETS.adapt,C.pulse],breach:[ASSETS.breach,C.surge]};
+$$('svg[data-emb]').forEach(s=>{const [p,c]=EMB[s.dataset.emb];s.setAttribute('viewBox','-2 -2 283 182');s.innerHTML=P(p,c)});
+$$('svg[data-super]').forEach(s=>{s.innerHTML=P(ASSETS.emblem,C.pulse)});
+
+/* toast + copy */
+const toast=$('#toast');let tt;
+function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1800)}
+async function copy(text,label){try{await navigator.clipboard.writeText(text);say(label||'Copied');return true}catch(e){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}ta.remove();say(ok?(label||'Copied'):'Copy blocked here. Select the text and copy it manually.');return ok}}
+
+/* misuse */
+const mis=[
+ ['Distort','Never stretch or squash the logo.','transform="translate(671 89) scale(1.35 .7) translate(-671 -89)"',C.shadow,C.pulse],
+ ['Rotate','Never rotate or tilt the mark.','transform="rotate(-12 671 89)"',C.shadow,C.pulse],
+ ['Recolor','Never use colors outside the palette.','',C.shadow,'#1FB5A8'],
+ ['Outline','Never convert to outlines or strokes.','fill="none" stroke="#211F2D" stroke-width="5"','none','none'],
+ ['Add effects','No glow, bloom or drop shadows.','style="filter:drop-shadow(0 0 14px #9C26F0) drop-shadow(0 0 4px #9C26F0)"',C.shadow,C.pulse],
+ ['Rebuild','Never separate, redraw or rearrange parts.','',C.shadow,C.pulse,true]
+];
+$('#misuse').innerHTML=mis.map(([t,d,g,w,e,rebuild])=>{
+  let inner;
+  if(rebuild){inner=P(ASSETS.wordL,w,'transform="translate(0 -40)"')+P(ASSETS.wordR,w,'transform="translate(-200 60)"')+P([ASSETS.emblemInLogo[0]],e,'transform="translate(-30 -30)"')+P([ASSETS.emblemInLogo[1]],e,'transform="translate(40 30)"')}
+  else if(w==='none'){inner=`<g ${g}>${[...ASSETS.wordL,...ASSETS.wordR,...ASSETS.emblemInLogo].map(d=>`<path d="${d}"/>`).join('')}</g>`}
+  else inner=`<g ${g}>${logoSVG(w,e)}</g>`;
+  return `<div class="mis"><div class="box"><svg viewBox="-40 -60 1423 298" aria-hidden="true">${inner}</svg></div><b>${t}</b><span>${d}</span></div>`}).join('');
+
+/* emblem construction */
+const st=$('#stage'),ss=$('#stageSvg');
+ss.innerHTML=`<path class="half h1" fill="${C.pulse}" d="${ASSETS.emblem[0]}"/><path class="half h2" fill="${C.pulse}" d="${ASSETS.emblem[1]}"/>
+<g class="ann" fill="${C.shadow}"><text x="50" y="-12">L</text><text x="200" y="208">L</text><text x="122" y="104" font-size="15" fill="${C.shadow}">N</text>
+<line x1="70" y1="-6" x2="95" y2="30" stroke="${C.shadow}" stroke-width="1.5"/><line x1="196" y1="190" x2="180" y2="150" stroke="${C.shadow}" stroke-width="1.5"/></g>`;
+$('#btnConstruct').onclick=e=>{const on=st.dataset.mode!=='construct';st.dataset.mode=on?'construct':'plain';e.currentTarget.setAttribute('aria-pressed',on);e.currentTarget.textContent=on?'Hide construction':'Show construction'};
+$('#btnLock').onclick=e=>{const apart=st.dataset.state!=='apart';st.dataset.state=apart?'apart':'locked';e.currentTarget.textContent=apart?'Lock in':'Unlock'};
+
+/* factions */
+const FAC={
+ focus:{name:'Focus',color:'Ignition · #FF7514',detail:'Scope-inspired detail added to the brand mark',rep:'Accuracy, concentration, and strategic play',line:'A scope-inspired variation for players who play with precision.'},
+ adapt:{name:'Adapt',color:'Pulse · #9C26F0',detail:'Combines the scope- and stock-inspired details',rep:'Balance, flexibility, and adaptability across playstyles',line:'A combination of both elements for players who move between styles.'},
+ breach:{name:'Breach',color:'Surge · #91E829',detail:'Stock-inspired detail added to the brand mark',rep:'Close-quarters action, intensity, and decisive movement',line:'A stock-inspired variation for players who push forward.'}
+};
+function setFaction(f,save=true){
+  document.documentElement.dataset.faction=f;
+  $$('[data-f]').forEach(b=>{if(b.matches('.fbtn,.fac-tab,#prodTabs .btn'))b.setAttribute('aria-pressed',b.dataset.f===f)});
+  const d=FAC[f];$('#facName').innerHTML='<em></em>'+d.name;$('#facColor').textContent=d.color;$('#facDetail').textContent=d.detail;$('#facRep').textContent=d.rep;$('#facLine').textContent=d.line;
+  const src=`img/box-${f}.jpg`,alt=`VOLT modular blaster system packaging, ${d.name} edition`;
+  $('#facImg').src=src;$('#facImg').alt=alt;$('#prodImg').src=src;$('#prodImg').alt=alt;$('#prodBtn').dataset.lb=src;
+  if(save)store.set('lnl-faction',f);
+}
+$$('.fbtn,.fac-tab,#prodTabs .btn').forEach(b=>b.addEventListener('click',()=>setFaction(b.dataset.f)));
+setFaction(store.get('lnl-faction')||'adapt',false);
+
+/* colors */
+const hexRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const lum=h=>{const [r,g,b]=hexRgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b};
+const ratio=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const SW=[['pulse','Pulse','Pulse Violet','p'],['shadow','Shadow','Shadow Alloy','p'],['frost','Frost','Frost Signal','p'],['ignition','Ignition','Ignition Orange','s'],['surge','Surge','Surge Green','s']];
+const onC=h=>ratio(h,C.shadow)>ratio(h,C.frost)?C.shadow:C.frost;
+$('#swatches').innerHTML=SW.map(([k,n,full,t])=>{const h=C[k],[r,g,b]=hexRgb(h);return `<button class="sw ${t}" type="button" data-hex="${h}" style="background:${h};color:${onC(h)};${k==='frost'?'box-shadow:inset 0 0 0 1px var(--line)':''}" aria-label="Copy ${full} ${h}"><span class="cp">Copy</span><span><span class="nm">${n}</span><div class="hx">${h.slice(1)}</div></span><span class="meta">${full}<br>${t==='p'?'Primary':'Secondary'}<br>RGB ${r} ${g} ${b}</span></button>`}).join('');
+$$('.sw').forEach(b=>b.onclick=()=>copy(b.dataset.hex,b.dataset.hex+' copied'));
+const keys=SW.map(s=>s[0]);let sel=['frost','shadow'];
+function renderMx(){
+  let h='<thead><tr><th>Text ↓ / Bg →</th>'+keys.map(k=>`<th>${k}</th>`).join('')+'</tr></thead><tbody>';
+  keys.forEach(fg=>{h+=`<tr><th>${fg}</th>`+keys.map(bg=>{if(fg===bg)return '<td></td>';const r=ratio(C[fg],C[bg]);const pass=r>=3;return `<td><button type="button" class="${pass?'':'fail'}" data-fg="${fg}" data-bg="${bg}" aria-pressed="${sel[0]===fg&&sel[1]===bg}" style="background:${C[bg]};color:${C[fg]};${bg==='frost'?'box-shadow:inset 0 0 0 1px #DCDFEA':''}" aria-label="${fg} on ${bg}, ${r.toFixed(2)} to 1">${r.toFixed(1)}</button></td>`}).join('')+'</tr>'});
+  $('#mx').innerHTML=h+'</tbody>';
+  $$('#mx button').forEach(b=>b.onclick=()=>{sel=[b.dataset.fg,b.dataset.bg];renderMx()});
+  const [fg,bg]=sel,r=ratio(C[fg],C[bg]);const pv=$('#prev');pv.style.background=C[bg];pv.style.color=C[fg];pv.style.boxShadow=bg==='frost'||bg==='pulse'&&false?'inset 0 0 0 1px #DCDFEA':'none';
+  const t=(ok,l)=>`<span class="pill ${ok?'ok':'no'}">${ok?'Pass':'Fail'} · ${l}</span>`;
+  $('#verdict').innerHTML=`<span class="r">${r.toFixed(2)}:1</span>${t(r>=4.5,'AA body')}${t(r>=3,'AA large')}${t(r>=7,'AAA body')}<span class="note" style="flex-basis:100%">${fg[0].toUpperCase()+fg.slice(1)} on ${bg[0].toUpperCase()+bg.slice(1)}. ${r<3?'Avoid for any text.':r<4.5?'Large display type only.':'Safe for body copy.'}</span>`;
+}
+renderMx();
+
+/* type tester */
+const ld=$('#ldemo'),s1=$('#s1'),s2=$('#s2');
+function ty(){let a=+s1.value,b=+s2.value;const max=Math.floor(a*.75);if(b>max){b=max;s2.value=b}ld.style.setProperty('--s1',a+'px');ld.style.setProperty('--s2',b+'px');$('#o1').textContent=a+'px';$('#o2').textContent=b+'px'}
+s1.oninput=s2.oninput=ty;ty();
+document.fonts&&document.fonts.ready.then(()=>{if([...document.fonts].some(f=>/barell/i.test(f.family)&&f.status==='loaded'))$('#fontNote').textContent=[...document.fonts].some(f=>/address/i.test(f.family)&&f.status==='loaded')?'Set in BC Barell and Address Sans Pro via Adobe Fonts.':'Display type set in BC Barell via Adobe Fonts. Body copy uses a provisional stand-in for Address Sans Pro.'});
+
+/* textures */
+$$('.tex-filter .btn[data-t]').forEach(b=>b.onclick=()=>{$$('.tex-filter .btn[data-t]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#texBoard').dataset.show=b.dataset.t});
+
+/* density */
+const LV={
+ 1:['Clean','Compliant','Brand type, logo and Shadow ground only. Valid, but leaves out the expressive layer.',[1,1,1,1,1]],
+ 2:['Balanced','Recommended','One faction texture as a controlled accent. One focal point, open negative space.',[1,1,1,1,1]],
+ 3:['Upper limit','Compliant','Blueprint structure joins the graffiti accent. Still readable, but this is as far as it goes.',[1,1,1,1,1]],
+ 4:['Too dense','Fails','Heavy graffiti plus blueprint overlays plus decorative captions. Competing layers bury the message.',[0,1,0,0,1]],
+ 5:['Overloaded','Fails','Glow, outlines, mixed faction colors and filler markings. Nothing reads first.',[0,0,0,0,0]]
+};
+const CK=['One clear focal point','Brand typography unaltered (no glow or outline)','Limited graphic layers','Faction color used only for its faction','Logo legible with clear space'];
+const dens=$('#dens'),po=$('#poster');
+function dz(){const v=+dens.value,[t,s,d,c]=LV[v];po.dataset.lv=v;
+  $('.g1',po).style.opacity=v>=2?(v>=4?1:.85):0;$('.bp',po).style.opacity=v>=3?(v>=4?.55:.22):0;$('.g2',po).style.opacity=v>=4?(v>=5?.9:.55):0;$('.marks',po).style.opacity=v>=4?1:0;
+  $$('#meter i').forEach((i,k)=>{i.className=k<v?('on'+(v>=4?' bad':'')):''});
+  $('#dv').textContent=t+' · '+s;$('#dd').textContent=d;$('#checks').innerHTML=CK.map((x,i)=>`<li class="${c[i]?'':'x'}">${x}</li>`).join('')}
+dens.oninput=dz;dz();
+
+/* lightbox */
+const lb=$('#lb');
+document.addEventListener('click',e=>{const b=e.target.closest('[data-lb]');if(!b)return;$('#lbImg').src=b.dataset.lb;$('#lbImg').alt=b.dataset.cap||'';$('#lbCap').textContent=b.dataset.cap||'';lb.hidden=false;$('#lbClose').focus()});
+const closeLb=()=>{lb.hidden=true};$('#lbClose').onclick=closeLb;lb.onclick=e=>{if(e.target===lb)closeLb()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLb();closeMenu()}});
+
+/* nav */
+const rail=$('#rail'),scrim=$('#scrim'),mb=$('#menuBtn');
+function closeMenu(){rail.classList.remove('open');scrim.hidden=true;mb.setAttribute('aria-expanded','false')}
+mb.onclick=()=>{const o=!rail.classList.contains('open');rail.classList.toggle('open',o);scrim.hidden=!o;mb.setAttribute('aria-expanded',o)};
+scrim.onclick=closeMenu;$$('#rail a').forEach(a=>a.addEventListener('click',closeMenu));
+const links=$$('#toc a'),secs=links.map(a=>$(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>s&&io.observe(s));
+
+/* prompt: part A */
+$('#introP').textContent=PROMPT.intro[0];
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('#partA').innerHTML=PROMPT.A.map((s,i)=>{const [n,...t]=s.title.split('. ');return `<details class="acc"${i===0?' open':''}><summary><span class="n">${n}</span><span class="t">${t.join('. ')}<span class="s">${s.sub}</span></span><span class="pm" aria-hidden="true">+</span></summary><div class="acc-body">${s.blocks.map(([k,v])=>k==='h'?`<h4>${esc(v)}</h4>`:`<p>${esc(v)}</p>`).join('')}</div></details>`}).join('');
+
+/* prompt: part B */
+const EXEC=`AI Execution Instructions
+Review, Clarification, and Compliance
+
+Once the questionnaire has been completed, review all responses alongside the permanent LOCKNLOAD brand principles established in Part A.
+
+Before generating the requested deliverables:
+1. Identify missing information. Determine whether the responses provide sufficient direction to execute the project accurately. Do not invent significant requirements or make unsupported creative decisions.
+2. Resolve ambiguities. If a response is unclear, incomplete, or open to multiple interpretations that would materially affect the outcome, ask the user to clarify their intent.
+3. Identify contradictions. If any responses conflict with one another or with the established LOCKNLOAD brand identity, explain the conflict and request direction before proceeding.
+4. Consolidate follow-up questions. Ask all necessary clarification questions together, using clear, direct language. Do not ask unnecessary questions about information already provided or requirements that do not apply.
+5. Confirm the creative direction. Once sufficient information is available, briefly summarize the intended application, key requirements, and deliverables before execution.
+
+During execution:
+Follow the permanent brand strategy, visual principles, and generative grammar established in Part A. Use approved assets as directed, preserve their defining characteristics, and avoid introducing unauthorized identity elements.
+Before delivery, perform a compliance check for approved assets, exact faction/color mapping, left alignment, restrained texture density, limited type hierarchy, realistic lighting, minimal copy, and questionnaire requirements. Report failures instead of silently presenting them as compliant.
+
+Upon delivery:
+State whether the result is a conceptual mockup or production-ready execution, and identify any assets that still require exact placement or verification.
+Verify that the completed work satisfies the project requirements and established brand principles.
+Identify any assumptions, limitations, or deviations that could affect the final result.`;
+const QCH={'09':['Universal identity','Focus · Ignition','Adapt · Pulse','Breach · Surge'],'10':['Primary logo','Emblem','Faction emblems','BC Barell + Address Sans Pro','Graffiti textures','Blueprint patterns','VOLT product imagery'],'18':['Faction variations (Focus, Adapt, Breach)']};
+let ans={};try{ans=JSON.parse(store.get('lnl-brief')||'{}')||{}}catch(e){ans={}}
+const groupNums=['05','06','07'];
+$('#partB').innerHTML=PROMPT.B.map((g,gi)=>`<div class="qgroup"><h3><span>${groupNums[gi]}</span>${g.title}</h3><p>${g.sub}</p>${g.qs.map(q=>`<div class="q" data-n="${q.n}"><label for="q${q.n}"><span class="qn">${q.n}</span><span>${esc(q.q)}</span></label><p class="help">${esc(q.help)}</p>${QCH[q.n]?`<div class="qchips">${QCH[q.n].map(c=>`<button type="button" data-add="${esc(c)}">+ ${esc(c)}</button>`).join('')}</div>`:''}<textarea id="q${q.n}" rows="2" placeholder="Response, or N/A"></textarea></div>`).join('')}</div>`).join('');
+const allQ=PROMPT.B.flatMap(g=>g.qs);
+$$('#partB textarea').forEach(t=>{const n=t.id.slice(1);t.value=ans[n]||'';t.addEventListener('input',()=>{ans[n]=t.value;save()})});
+$$('.qchips button').forEach(b=>b.onclick=()=>{const t=b.closest('.q').querySelector('textarea');t.value=t.value.trim()?t.value.replace(/\s*$/,'')+', '+b.dataset.add:b.dataset.add;t.dispatchEvent(new Event('input'));t.focus()});
+function partAText(){return `LOCKNLOAD\nAI Prompt Architecture\nHolistic Brand Experience System\n\n${PROMPT.intro.join('\n\n')}\n\nPART A: PERMANENT\nDefined by the Design Department | Fixed | Applies to Every Project\n\n`+PROMPT.A.map(s=>`${s.title}\n${s.sub}\n\n`+s.blocks.map(([k,v])=>k==='h'?`${v}\n`:`${v}\n\n`).join('')).join('')}
+function partBText(){return 'PART B: FLEXIBLE\nDefined by the Project Owner | Customized for Every Application\n\n'+PROMPT.B.map((g,gi)=>`${groupNums[gi]}. ${g.title}\n${g.sub}\n\n`+g.qs.map(q=>`${q.n}. ${q.q}\nResponse: ${(ans[q.n]||'').trim()||'[not answered]'}\n`).join('\n')).join('\n')}
+function save(){store.set('lnl-brief',JSON.stringify(ans));const done=allQ.filter(q=>(ans[q.n]||'').trim()).length;$('#cnt').textContent=done+'/'+allQ.length;$('#barI').style.width=(done/allQ.length*100)+'%';$$('#partB .q').forEach(q=>q.classList.toggle('done',!!(ans[q.dataset.n]||'').trim()));$('#preview').textContent=partBText()+'\n\n'+EXEC}
+save();
+$('#copyAll').onclick=()=>{const miss=allQ.filter(q=>!(ans[q.n]||'').trim()).length;copy(partAText()+'\n'+partBText()+'\n\n'+EXEC,'Full prompt copied');$('#status').textContent=miss?`${miss} question${miss>1?'s are':' is'} unanswered and marked [not answered] in the prompt.`:'All 21 questions answered.'};
+$('#copyB').onclick=()=>copy(partBText(),'Answers copied');
+$('#clearB').onclick=()=>{$('#confirmBox').hidden=false};
+$('#clearNo').onclick=()=>{$('#confirmBox').hidden=true};
+$('#clearYes').onclick=()=>{ans={};$$('#partB textarea').forEach(t=>t.value='');save();$('#confirmBox').hidden=true;$('#status').textContent='Answers cleared.'};
+</script>
+
+</body>
+</html>
