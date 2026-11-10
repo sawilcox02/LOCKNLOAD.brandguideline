@@ -1356,7 +1356,7 @@ const rail=$('#rail'),scrim=$('#scrim'),mb=$('#menuBtn');
 function closeMenu(){rail.classList.remove('open');scrim.hidden=true;mb.setAttribute('aria-expanded','false')}
 mb.onclick=()=>{const o=!rail.classList.contains('open');rail.classList.toggle('open',o);scrim.hidden=!o;mb.setAttribute('aria-expanded',o)};
 scrim.onclick=closeMenu;$$('#rail a').forEach(a=>a.addEventListener('click',closeMenu));
-const links=$$('#toc a'),secs=links.map(a=>$(a.getAttribute('href')));
+const links=$$('#toc a').filter(a=>a.getAttribute('href').startsWith('#')),secs=links.map(a=>$(a.getAttribute('href')));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
 secs.forEach(s=>s&&io.observe(s));
 
