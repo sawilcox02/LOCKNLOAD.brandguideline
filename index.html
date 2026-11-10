@@ -212,8 +212,11 @@ main{margin-left:var(--rail)}
 .tcard .big{font-size:clamp(34px,calc((100vw - var(--rail)) * .048),68px)}
 .tcard .glyphs{font-size:clamp(13px,calc((100vw - var(--rail)) * .013),17px);line-height:1.6;word-break:break-all}
 .tcard .tbig{font-size:clamp(36px,4.4vw,60px);line-height:1}
-.tester{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
-.layout-demo{container-type:inline-size;background:var(--shadow);color:var(--frost);padding:36px;display:flex;flex-direction:column;gap:14px;text-align:left;min-height:280px;justify-content:flex-end;position:relative;overflow:hidden}
+.tester{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.tester .ctrls{order:-1;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:16px 32px;align-items:end}
+.tester .ctrls .note{grid-column:1/-1}
+@media (max-width:860px){.tester .ctrls{grid-template-columns:minmax(0,1fr)}}
+.layout-demo{container-type:inline-size;background:var(--shadow);color:var(--frost);padding:36px;display:flex;flex-direction:column;gap:14px;text-align:left;min-height:320px;justify-content:flex-end;position:relative;overflow:hidden}
 .layout-demo .h1{font-size:min(var(--s1,64px),8.6cqw)}
 .layout-demo .h2{font-size:min(var(--s2,26px),5.6cqw);color:var(--fac)}
 .layout-demo>*{overflow-wrap:anywhere}
@@ -658,9 +661,9 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
       </div>
       <div class="ctrls">
         <p style="font-size:15px">Default to <b>left-aligned type</b> on a consistent grid, with at most <b>two BC Barell sizes</b> and <b>one Address Sans Pro size</b> per composition. Hierarchy comes from size, weight, spacing and placement, never from extra typefaces, outlines or glow.</p>
-        <label for="s1">Display 1 size <output id="o1">64px</output><input type="range" id="s1" min="36" max="96" value="64"></label>
+        <label for="s1">Display 1 size <output id="o1">72px</output><input type="range" id="s1" min="32" max="120" value="72"></label>
         <label for="s2">Display 2 size <output id="o2">26px</output><input type="range" id="s2" min="16" max="48" value="26"></label>
-        <p class="note">Text in the sample is editable. Display 2 is held below 75% of Display 1 to keep a clear two-step hierarchy.</p>
+        <p class="note">Text in the sample is editable. The slider range follows the width of the sample, so the headline always fits its box. Display 2 stays at or below 75% of Display 1 to keep a clear two-step hierarchy.</p>
       </div>
     </div>
   </div></section>
@@ -1314,8 +1317,10 @@ renderMx();
 
 /* type tester */
 const ld=$('#ldemo'),s1=$('#s1'),s2=$('#s2');
-function ty(){let a=+s1.value,b=+s2.value;const max=Math.floor(a*.75);if(b>max){b=max;s2.value=b}ld.style.setProperty('--s1',a+'px');ld.style.setProperty('--s2',b+'px');$('#o1').textContent=a+'px';$('#o2').textContent=b+'px'}
+function fitRange(){const cw=ld.clientWidth-72;const m1=Math.max(18,Math.floor(cw*.086));s1.max=m1;s1.min=Math.min(32,Math.floor(m1*.5));if(+s1.value>m1)s1.value=m1;const m2=Math.max(12,Math.min(56,Math.floor(cw*.056)));s2.max=m2;s2.min=Math.min(16,Math.floor(m2*.5));ty()}
+function ty(){let a=+s1.value,b=+s2.value;const max=Math.min(+s2.max,Math.floor(a*.75));if(b>max){b=max;s2.value=b}ld.style.setProperty('--s1',a+'px');ld.style.setProperty('--s2',b+'px');$('#o1').textContent=a+'px';$('#o2').textContent=b+'px'}
 s1.oninput=s2.oninput=ty;ty();
+if(window.ResizeObserver)new ResizeObserver(fitRange).observe(ld);fitRange();
 document.fonts&&document.fonts.ready.then(()=>{if([...document.fonts].some(f=>/barell/i.test(f.family)&&f.status==='loaded'))$('#fontNote').textContent=[...document.fonts].some(f=>/address/i.test(f.family)&&f.status==='loaded')?'Set in BC Barell and Address Sans Pro via Adobe Fonts.':'Display type set in BC Barell via Adobe Fonts. Body copy uses a provisional stand-in for Address Sans Pro.'});
 
 /* textures */
