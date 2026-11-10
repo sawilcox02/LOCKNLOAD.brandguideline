@@ -145,7 +145,8 @@ main{margin-left:var(--rail)}
 .mis{display:flex;flex-direction:column;gap:10px}
 .mis .box{background:var(--frost);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .mis .box svg{width:78%;height:auto;overflow:visible}
-.mis .box::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),rgba(33,31,45,.55) calc(50% - 1.5px),rgba(33,31,45,.55) calc(50% + 1.5px),transparent calc(50% + 1.5px))}
+.mis .box svg.x{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.mis .box svg.x line{stroke:var(--shadow);stroke-opacity:.6;stroke-width:2;stroke-linecap:round}
 .mis b{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;text-transform:uppercase}
 .mis span{font-size:14px;color:var(--muted)}
 
@@ -1264,7 +1265,7 @@ $('#misuse').innerHTML=mis.map(([t,d,g,w,e,rebuild])=>{
   if(rebuild){inner=P(ASSETS.wordL,w,'transform="translate(0 -40)"')+P(ASSETS.wordR,w,'transform="translate(-200 60)"')+P([ASSETS.emblemInLogo[0]],e,'transform="translate(-30 -30)"')+P([ASSETS.emblemInLogo[1]],e,'transform="translate(40 30)"')}
   else if(w==='none'){inner=`<g ${g}>${[...ASSETS.wordL,...ASSETS.wordR,...ASSETS.emblemInLogo].map(d=>`<path d="${d}"/>`).join('')}</g>`}
   else inner=`<g ${g}>${logoSVG(w,e)}</g>`;
-  return `<div class="mis"><div class="box"><svg viewBox="-40 -60 1423 298" aria-hidden="true">${inner}</svg></div><b>${t}</b><span>${d}</span></div>`}).join('');
+  return `<div class="mis"><div class="box"><svg viewBox="-40 -60 1423 298" aria-hidden="true">${inner}</svg><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="100" y2="100" vector-effect="non-scaling-stroke"/></svg></div><b>${t}</b><span>${d}</span></div>`}).join('');
 
 /* emblem construction */
 const st=$('#stage'),ss=$('#stageSvg');
