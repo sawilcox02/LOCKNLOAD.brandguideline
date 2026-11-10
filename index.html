@@ -28,6 +28,8 @@ html[data-faction="focus"]{--fac:var(--ignition)}
 html[data-faction="adapt"]{--fac:var(--pulse)}
 html[data-faction="breach"]{--fac:var(--surge)}
 *{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:64px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
@@ -45,7 +47,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .rail-logo{padding:0 24px 22px;border-bottom:1px solid var(--shadow-line)}
 .rail-logo svg{width:100%;height:auto}
 .rail nav{flex:1;overflow-y:auto;padding:18px 0}
-.rail .ch{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8E8AA6;padding:14px 24px 6px;display:flex;gap:10px}
+.rail .ch{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:9px;line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:#8E8AA6;padding:14px 24px 6px;display:flex;gap:10px}
 .rail .ch span{color:var(--fac)}
 .rail nav a{display:block;padding:5px 24px 5px 46px;text-decoration:none;font-size:15px;color:#C9CBDA;border-left:3px solid transparent}
 .rail nav a:hover{color:#fff}
@@ -53,7 +55,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .fswitch{padding:16px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--shadow-line)}
 .fswitch .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8E8AA6;margin-bottom:8px}
 .fbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.fbtn{background:var(--shadow-2);border:1px solid var(--shadow-line);border-radius:0;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:9px;letter-spacing:.06em;color:#C9CBDA}
+.fbtn{background:var(--shadow-2);border:1px solid var(--shadow-line);border-radius:0;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:7.5px;letter-spacing:0;color:#C9CBDA}
 .fbtn svg{width:30px;height:auto}
 .fbtn[aria-pressed="true"]{border-color:currentColor;color:#fff}
 .fbtn[data-f="focus"][aria-pressed="true"]{border-color:var(--ignition)}
@@ -68,7 +70,11 @@ main{margin-left:var(--rail)}
 .divider{position:relative;background:var(--shadow);color:var(--frost);overflow:hidden;min-height:440px;display:flex;align-items:flex-end}
 .divider .wrap{padding-block:56px 48px;position:relative;z-index:1;width:100%}
 .divider .num{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:14px;letter-spacing:.1em;color:var(--fac);margin-bottom:14px}
-.divider h2{font-size:clamp(44px,7vw,96px)}
+.divider h2{font-size:clamp(24px,calc((100vw - var(--rail)) * .06),92px)}
+.cover{margin-bottom:40px;min-height:0}
+.cover .wrap{padding-block:72px 64px}
+.cover-logo{display:block;width:100%;height:auto;margin-bottom:clamp(36px,6vw,72px)}
+.cover-h{font-size:clamp(26px,calc((100vw - var(--rail)) * .068),104px)}
 .divider p{max-width:58ch;margin-top:18px;color:#C9CBDA;font-size:18px}
 .super{position:absolute;right:-6%;top:-18%;width:min(62%,760px);pointer-events:none}
 .super path{fill:var(--pulse)}
@@ -76,7 +82,7 @@ main{margin-left:var(--rail)}
 /* content section */
 .sec{padding-block:88px 72px;border-bottom:1px solid var(--line);position:relative}
 .sec-h{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:48px}
-.sec h2{font-size:clamp(32px,4.4vw,54px)}
+.sec h2{font-size:clamp(24px,calc((100vw - var(--rail)) * .042),52px)}
 .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600}
 .rows{display:grid;gap:40px}
 .row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;align-items:start}
@@ -89,9 +95,9 @@ main{margin-left:var(--rail)}
 .rule b{color:var(--ink);font-weight:600}
 
 /* values / traits */
-.values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line);border:2px solid var(--line)}
-.value{background:var(--paper);padding:22px 20px 24px;display:flex;flex-direction:column;gap:10px}
-.value h3{font-size:15px}
+.values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;background:var(--line);border:2px solid var(--line);container-type:inline-size}
+.value{background:var(--paper);padding:24px 24px 26px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.value h3{font-size:clamp(11px,calc(3.1cqw - 3px),17px);line-height:1.1}
 .value p{font-size:15px;color:var(--muted)}
 .value .ix{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px;color:var(--pulse)}
 .pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
@@ -106,7 +112,7 @@ main{margin-left:var(--rail)}
 .comp div{display:grid;grid-template-columns:200px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--line)}
 .comp b{font-weight:600}
 .cta-demo{background:var(--shadow);color:var(--frost);padding:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
-.cta-demo .d{font-size:clamp(30px,4vw,48px)}
+.cta-demo .d{font-size:clamp(28px,3.4vw,44px)}
 .cta-demo .d em{font-style:normal;color:var(--fac)}
 
 /* logo */
@@ -152,7 +158,7 @@ main{margin-left:var(--rail)}
 .fac-tab[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--fac)}
 .fac-tab:hover svg{opacity:.85}
 .fac-detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;margin-top:40px;align-items:start}
-.fac-detail .d{font-size:40px;color:var(--ink)}
+.fac-detail .d{font-size:clamp(28px,3vw,38px);color:var(--ink)}
 .fac-detail .d em{font-style:normal;display:block;width:56px;height:8px;background:var(--fac);margin-bottom:16px}
 .spec{display:grid;gap:0;margin-top:20px}
 .spec div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
@@ -164,7 +170,8 @@ main{margin-left:var(--rail)}
 .sw{border:0;text-align:left;padding:18px 18px 16px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;position:relative}
 .sw.p{grid-column:span 2;min-height:260px}
 .sw.s{grid-column:span 3;min-height:150px}
-.sw .nm{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:17px;text-transform:uppercase;line-height:1}
+.sw{min-width:0}
+.sw .nm{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:15px;text-transform:uppercase;line-height:1}
 .sw .hx{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:14px;margin-top:4px}
 .sw .meta{font-size:13px;line-height:1.45;opacity:.85;font-variant-numeric:tabular-nums}
 .sw .cp{position:absolute;right:14px;top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:0;transition:opacity .2s}
@@ -180,8 +187,8 @@ main{margin-left:var(--rail)}
 .mx button{width:62px;height:46px;border:0;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;position:relative}
 .mx button[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:1px}
 .mx button.fail{font-size:11px;opacity:.5}
-.prev{padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
-.prev .d{font-size:clamp(30px,4vw,46px)}
+.prev{padding:32px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;container-type:inline-size}
+.prev .d{font-size:clamp(26px,9cqw,44px)}
 .verdict{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
 .verdict .r{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:26px;margin-right:8px;font-variant-numeric:tabular-nums}
 .pill{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:5px 10px 4px;border:1.5px solid var(--ink)}
@@ -194,13 +201,15 @@ main{margin-left:var(--rail)}
 .tcard.dk{background:var(--shadow);color:var(--frost)}
 .tcard.lt{background:var(--frost)}
 .tcard .role{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.7}
-.tcard .big{font-size:clamp(46px,6vw,84px)}
-.tcard .glyphs{font-size:20px;line-height:1.5;word-break:break-all}
-.tcard .tbig{font-size:clamp(40px,5vw,64px);line-height:1}
+.tcard{min-width:0;overflow:hidden}
+.tcard .big{font-size:clamp(34px,calc((100vw - var(--rail)) * .048),68px)}
+.tcard .glyphs{font-size:clamp(13px,calc((100vw - var(--rail)) * .013),17px);line-height:1.6;word-break:break-all}
+.tcard .tbig{font-size:clamp(36px,4.4vw,60px);line-height:1}
 .tester{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
-.layout-demo{background:var(--paper);border:1px solid var(--line);padding:36px;display:flex;flex-direction:column;gap:14px;text-align:left;min-height:280px;justify-content:flex-end;position:relative;overflow:hidden}
-.layout-demo .h1{font-size:var(--s1,64px)}
-.layout-demo .h2{font-size:var(--s2,26px);color:var(--fac)}
+.layout-demo{container-type:inline-size;background:var(--paper);border:1px solid var(--line);padding:36px;display:flex;flex-direction:column;gap:14px;text-align:left;min-height:280px;justify-content:flex-end;position:relative;overflow:hidden}
+.layout-demo .h1{font-size:min(var(--s1,64px),8.6cqw)}
+.layout-demo .h2{font-size:min(var(--s2,26px),5.6cqw);color:var(--fac)}
+.layout-demo>*{overflow-wrap:anywhere}
 html[data-faction="breach"] .layout-demo .h2{color:#4F8A0C}
 .layout-demo .sup{font-size:17px;max-width:46ch;color:var(--muted)}
 .layout-demo [contenteditable]{outline:none;border-bottom:1px dashed transparent}
@@ -226,7 +235,7 @@ input[type=range]{width:100%;accent-color:var(--pulse)}
 
 /* density */
 .density{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:48px;align-items:start}
-.poster{aspect-ratio:4/5;background:var(--shadow);position:relative;overflow:hidden;color:var(--frost);max-width:100%}
+.poster{container-type:inline-size;aspect-ratio:4/5;background:var(--shadow);position:relative;overflow:hidden;color:var(--frost);max-width:100%}
 .poster .lyr{position:absolute;transition:opacity .4s;background-size:cover;pointer-events:none}
 .poster .g1{right:-10%;top:0;width:70%;height:34%;background-image:url(img/tex-adapt.jpg);background-position:70% 50%;mix-blend-mode:screen;transform:skewY(-8deg)}
 html[data-faction="focus"] .poster .g1{background-image:url(img/tex-focus.jpg)}
@@ -236,7 +245,7 @@ html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)
 .poster .marks{inset:0;font-family:var(--text);font-size:9px;letter-spacing:.2em;color:#C9CBDA}
 .poster .marks span{position:absolute}
 .poster .content{position:absolute;left:8%;right:8%;bottom:7%;display:flex;flex-direction:column;gap:10px;z-index:2}
-.poster .content .d{font-size:clamp(34px,4.6vw,52px)}
+.poster .content .d{font-size:7.6cqw}
 .poster .content .d em{font-style:normal;color:var(--fac)}
 .poster .content .sl{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:12px;letter-spacing:.06em}
 .poster .plogo{position:absolute;left:8%;top:7%;width:46%;z-index:2}
@@ -247,7 +256,7 @@ html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)
 .meter i{height:8px;background:var(--line)}
 .meter i.on{background:var(--ink)}
 .meter i.on.bad{background:repeating-linear-gradient(45deg,var(--ink) 0 4px,transparent 4px 7px)}
-.dv{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:28px;text-transform:uppercase}
+.dv{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:22px;line-height:1.15;text-transform:uppercase}
 .checks{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
 .checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px}
 .checks li::before{content:"✓";font-weight:700}
@@ -265,7 +274,7 @@ html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)
 .w2 img{height:100%}
 .sense{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
 .sense>div{background:var(--frost);padding:32px;display:flex;flex-direction:column;gap:14px}
-.sense h3{font-size:22px}
+.sense h3{font-size:20px}
 .sense .words{display:flex;flex-wrap:wrap;gap:6px}
 .sense .words span{border:1.5px solid var(--ink);padding:4px 10px 3px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .sense p{color:var(--muted);font-size:16px}
@@ -278,7 +287,7 @@ html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)
 .part{padding:28px;display:flex;flex-direction:column;gap:10px}
 .part.a{background:var(--shadow);color:var(--frost)}
 .part.b{background:var(--frost)}
-.part .d{font-size:22px}
+.part .d{font-size:clamp(16px,1.8vw,20px)}
 .part .who{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.7}
 .part p{font-size:15px;opacity:.85}
 details.acc{border-top:1px solid var(--line)}
@@ -324,7 +333,7 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
 /* end */
 .end{background:var(--shadow);color:var(--frost);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:flex-end}
 .end .wrap{padding-block:56px;width:100%;position:relative;z-index:1}
-.end h2{font-size:clamp(56px,9vw,120px)}
+.end h2{font-size:clamp(40px,calc((100vw - var(--rail)) * .09),110px)}
 .footbar{background:var(--shadow);border-top:1px solid var(--shadow-line);color:#8E8AA6;font-size:13px}
 .footbar .wrap{padding-block:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .footbar b{font-family:var(--display);font-stretch:125%;font-weight:900;color:var(--frost);font-size:12px}
@@ -373,6 +382,8 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
 }
 @media (max-width:520px){
   .values{grid-template-columns:minmax(0,1fr)}
+  .value h3{font-size:clamp(13px,calc(5.4cqw - 3px),17px)}
+  .sw .nm{font-size:13px}
   .emb-grid{grid-template-columns:minmax(0,1fr)}
   .fac-tab{padding:18px 6px 16px}.fac-tab .nm{font-size:12px}
   .tcard{padding:22px}
@@ -424,11 +435,10 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
 
 <main id="top">
   <!-- COVER -->
-  <header class="divider" style="min-height:min(640px,82vh)">
-    <svg class="super" data-super viewBox="0 0 279 178" aria-hidden="true"></svg>
+  <header class="divider cover">
     <div class="wrap">
-      <svg viewBox="0 0 1343 178" class="logo-frost" style="width:min(100%,620px);height:auto;margin-bottom:40px" aria-label="LOCKNLOAD"></svg>
-      <h1 class="d" style="font-size:clamp(44px,7.4vw,104px)">Brand<br>Guidelines</h1>
+      <svg viewBox="0 0 1343 178" class="logo-frost cover-logo" aria-label="LOCKNLOAD"></svg>
+      <h1 class="d cover-h">Brand<br>Guidelines</h1>
       <p>The identity, voice, visual system and experience rules for LOCKNLOAD, the premium modular toy blaster system. Use this as the reference for every product, space, campaign and AI-assisted application.</p>
     </div>
   </header>
@@ -516,8 +526,8 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
         </div>
       </div></div>
       <div class="row"><div class="lab">Messaging</div><div class="val" style="max-width:none">
-        <p style="max-width:64ch;margin-bottom:20px">LOCKNLOAD encourages players to come together, find their playstyle, and embrace the excitement of shared experiences. The phrase “LOCK IN” or “LOCKNLOAD” itself serves as a recognizable call to action, encouraging players to focus, participate, and come together through play.</p>
-        <div class="cta-demo"><div class="d">Lock <em>in.</em></div><span style="font-size:14px;color:#C9CBDA;max-width:34ch">The brand’s call to action: preparation, participation, and shared excitement.</span></div>
+        <p style="max-width:64ch;margin-bottom:20px">LOCKNLOAD encourages players to come together, find their playstyle, and embrace the excitement of shared experiences. The phrase “LOCK N” or “LOCKNLOAD” itself serves as a recognizable call to action, encouraging players to focus, participate, and come together through play.</p>
+        <div class="cta-demo"><div class="d">Lock <em>N.</em></div><span style="font-size:14px;color:#C9CBDA;max-width:34ch">The brand’s call to action: preparation, participation, and shared excitement.</span></div>
       </div></div>
     </div>
   </div></section>
@@ -606,7 +616,7 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
         <div class="mx-wrap"><table class="mx" id="mx"></table></div>
       </div>
       <div>
-        <div class="prev" id="prev"><div class="d">Lock in.</div><p>Find your playstyle and join your team. Everyone starts on equal ground.</p></div>
+        <div class="prev" id="prev"><div class="d">Lock N.</div><p>Find your playstyle and join your team. Everyone starts on equal ground.</p></div>
         <div class="verdict" id="verdict"></div>
       </div>
     </div>
@@ -630,7 +640,7 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
     </div>
     <p class="note" style="margin-top:12px" id="fontNote">Web preview: if BC Barell and Address Sans Pro are installed on this computer they render here automatically. Otherwise this page shows provisional stand-ins (Archivo Expanded and Saira Semi Condensed), which are not approved brand fonts.</p>
     <div class="scale-list">
-      <div><span class="k">Display 1</span><span class="d" style="font-size:clamp(34px,5vw,64px)">Lock in</span><span class="u">BC Barell · largest headline</span></div>
+      <div><span class="k">Display 1</span><span class="d" style="font-size:clamp(34px,5vw,64px)">Lock N</span><span class="u">BC Barell · largest headline</span></div>
       <div><span class="k">Display 2</span><span class="d" style="font-size:clamp(20px,2.4vw,28px)">Play together</span><span class="u">BC Barell · secondary statement</span></div>
       <div><span class="k">Support</span><span style="font-size:17px">Drop in, gear up, and play with your team. Rental kits available.</span><span class="u">Address Sans Pro · body</span></div>
     </div>
@@ -896,7 +906,7 @@ const PROMPT={
     ],
     [
      "p",
-     "LOCKNLOAD communicates with confidence, enthusiasm, and familiarity. Its language should be direct, engaging, and action-oriented, encouraging players to challenge themselves, support their teammates, and experiment with new ways to play. Messaging should celebrate both individual achievement and collective success. The tone is competitive without aggression, expressive without unnecessary complexity, and encouraging without sounding overly sentimental. The phrases \u201cLOCKNLOAD\u201d and \u201cLOCK IN\u201d serve as recognizable calls to action, reinforcing preparation, participation, and shared excitement."
+     "LOCKNLOAD communicates with confidence, enthusiasm, and familiarity. Its language should be direct, engaging, and action-oriented, encouraging players to challenge themselves, support their teammates, and experiment with new ways to play. Messaging should celebrate both individual achievement and collective success. The tone is competitive without aggression, expressive without unnecessary complexity, and encouraging without sounding overly sentimental. The phrases \u201cLOCKNLOAD\u201d and \u201cLOCK N\u201d serve as recognizable calls to action, reinforcing preparation, participation, and shared excitement."
     ],
     [
      "h",
@@ -1253,7 +1263,7 @@ ss.innerHTML=`<path class="half h1" fill="${C.pulse}" d="${ASSETS.emblem[0]}"/><
 <g class="ann" fill="${C.shadow}"><text x="50" y="-12">L</text><text x="200" y="208">L</text><text x="122" y="104" font-size="15" fill="${C.shadow}">N</text>
 <line x1="70" y1="-6" x2="95" y2="30" stroke="${C.shadow}" stroke-width="1.5"/><line x1="196" y1="190" x2="180" y2="150" stroke="${C.shadow}" stroke-width="1.5"/></g>`;
 $('#btnConstruct').onclick=e=>{const on=st.dataset.mode!=='construct';st.dataset.mode=on?'construct':'plain';e.currentTarget.setAttribute('aria-pressed',on);e.currentTarget.textContent=on?'Hide construction':'Show construction'};
-$('#btnLock').onclick=e=>{const apart=st.dataset.state!=='apart';st.dataset.state=apart?'apart':'locked';e.currentTarget.textContent=apart?'Lock in':'Unlock'};
+$('#btnLock').onclick=e=>{const apart=st.dataset.state!=='apart';st.dataset.state=apart?'apart':'locked';e.currentTarget.textContent=apart?'Lock N':'Unlock'};
 
 /* factions */
 const FAC={
