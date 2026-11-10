@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOCKNLOAD Book Export</title>
+<link rel="stylesheet" href="https://use.typekit.net/lgs5npq.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;600&display=swap">
+<style>
+:root{--pulse:#9C26F0;--shadow:#211F2D;--paper:#FFFFFF;--muted:rgba(33,31,45,.7);--line:rgba(33,31,45,.14)}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--paper);color:var(--shadow);font-family:"address-sans-pro","Saira Semi Condensed",sans-serif;font-size:17px;line-height:1.5}
+.d{font-family:"bc-barell-extended-black","Arial Black",sans-serif;font-weight:900;text-transform:uppercase;line-height:.95}
+header{background:var(--shadow);color:#fff;padding:48px max(24px,5vw) 40px}
+header .d{font-size:clamp(28px,5vw,56px)}
+header p{color:rgba(255,255,255,.72);max-width:60ch;margin:14px 0 0}
+main{padding:40px max(24px,5vw) 64px;max-width:1100px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:40px}
+.card{border:2px solid var(--shadow);padding:22px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.card:hover{background:var(--shadow);color:#fff}
+.card .d{font-size:18px}.card span{font-size:14px;color:var(--muted)}.card:hover span{color:rgba(255,255,255,.75)}
+.status{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.pill{border:1.5px solid var(--shadow);padding:5px 12px 4px;font-size:13px;font-weight:600;letter-spacing:.04em}
+.pill.ok{background:var(--shadow);color:#fff}
+h2{font-size:20px;margin:0 0 10px}
+ol{padding-left:22px;max-width:70ch}li{margin-bottom:8px}
+b{font-weight:600}
+</style></head><body>
+<header><div class="d">Book export</div><p>Open a version, wait for it to finish loading, then save it as a PDF from Chrome. The pages use the real BC Barell from your Adobe Fonts web project.</p></header>
+<main>
+<div class="status" id="status"></div>
+<div class="cards">
+ <a class="card" href="book.html?mode=proof"><div class="d">Proof + guides</div><span>Spec pages, then every page on 11 × 17 with bleed, margins, columns, rows and ring holes shown.</span></a>
+ <a class="card" href="book.html?mode=print"><div class="d">Print</div><span>Every page on 11 × 17 with crop marks and punch ticks. No guides. Use this to print.</span></a>
+ <a class="card" href="book.html?mode=spreads"><div class="d">Spreads</div><span>Each spread as it reads in the book: visual above the rings, copy below.</span></a>
+</div>
+<h2 class="d">Save as PDF in Chrome</h2>
+<ol>
+ <li>Open a version and wait about 10 seconds so all fonts and images load.</li>
+ <li>Press <b>Ctrl+P</b> (<b>Cmd+P</b> on a Mac).</li>
+ <li>Set <b>Destination</b> to <b>Save as PDF</b>.</li>
+ <li>Under <b>More settings</b>: Paper size should already read 17 × 11 (or 12 × 13.5 for Spreads). Set <b>Margins</b> to <b>None</b>, <b>Scale</b> to <b>Default</b>, and tick <b>Background graphics</b>.</li>
+ <li>Click <b>Save</b>.</li>
+</ol>
+<p style="color:var(--muted);max-width:70ch">Use Chrome or Edge. Safari and Firefox ignore the custom page size. Body text uses a stand-in until Address Sans Pro is added to the Adobe web project; then it switches automatically.</p>
+</main>
+<script>
+Promise.all([document.fonts.load('900 20px bc-barell-extended-black').catch(()=>{}),document.fonts.load('400 16px address-sans-pro').catch(()=>{})]).then(()=>{
+ const has=r=>[...document.fonts].some(f=>r.test(f.family)&&f.status==='loaded');
+ const pill=(ok,t)=>`<span class="pill ${ok?'ok':''}">${t}: ${ok?'loaded':'not loaded'}</span>`;
+ document.getElementById('status').innerHTML=pill(has(/barell/i),'BC Barell')+pill(has(/address/i),'Address Sans Pro');
+});
+</script>
+</body></html>
