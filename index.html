@@ -190,7 +190,13 @@ main{margin-left:var(--rail)}
 .mx button.fail{font-size:11px;opacity:.5}
 .prev{padding:32px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;container-type:inline-size}
 .prev .d{font-size:clamp(26px,9cqw,44px)}
-.verdict{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.verdict{display:grid;gap:0;margin-top:16px}
+.vr-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding-bottom:12px}
+.vr-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.vr-row:last-of-type{border-bottom:1px solid var(--line);margin-bottom:12px}
+.vr-lab{font-weight:600;font-size:15px;display:grid}
+.vr-lab small{font-weight:400;font-size:13px;color:var(--muted)}
+.vr-p{display:flex;gap:6px}
 .verdict .r{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:26px;margin-right:8px;font-variant-numeric:tabular-nums}
 .pill{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:5px 10px 4px;border:1.5px solid var(--ink)}
 .pill.ok{background:var(--ink);color:var(--paper)}
@@ -1297,8 +1303,12 @@ function renderMx(){
   $('#mx').innerHTML=h+'</tbody>';
   $$('#mx button').forEach(b=>b.onclick=()=>{sel=[b.dataset.fg,b.dataset.bg];renderMx()});
   const [fg,bg]=sel,r=ratio(C[fg],C[bg]);const pv=$('#prev');pv.style.background=C[bg];pv.style.color=C[fg];pv.style.boxShadow=bg==='frost'||bg==='pulse'&&false?'inset 0 0 0 1px rgba(33,31,45,.14)':'none';
-  const t=(ok,l)=>`<span class="pill ${ok?'ok':'no'}">${ok?'Pass':'Fail'} · ${l}</span>`;
-  $('#verdict').innerHTML=`<span class="r">${r.toFixed(2)}:1</span>${t(r>=4.5,'AA body')}${t(r>=3,'AA large')}${t(r>=7,'AAA body')}<span class="note" style="flex-basis:100%">${fg[0].toUpperCase()+fg.slice(1)} on ${bg[0].toUpperCase()+bg.slice(1)}. ${r<3?'Avoid for any text.':r<4.5?'Large display type only.':'Safe for body copy.'}</span>`;
+  const t=(ok,l)=>`<span class="pill ${ok?'ok':'no'}">${l} ${ok?'pass':'fail'}</span>`;
+  const cap=x=>x[0].toUpperCase()+x.slice(1);
+  $('#verdict').innerHTML=`<div class="vr-head"><span class="r">${r.toFixed(2)}:1</span><span class="note">${cap(fg)} text on ${cap(bg)}. ${r<3?'Avoid for any text.':r<4.5?'Headlines and large display type only.':'Works for headlines and body copy.'}</span></div>
+  <div class="vr-row"><span class="vr-lab">Headline<small>Large text, 24px and up</small></span><span class="vr-p">${t(r>=3,'AA')}${t(r>=4.5,'AAA')}</span></div>
+  <div class="vr-row"><span class="vr-lab">Body copy<small>Normal text</small></span><span class="vr-p">${t(r>=4.5,'AA')}${t(r>=7,'AAA')}</span></div>
+  <p class="note">AA is the standard minimum for web accessibility (WCAG). AAA is the stricter, enhanced level.</p>`;
 }
 renderMx();
 
