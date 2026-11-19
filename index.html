@@ -276,7 +276,12 @@ html[data-faction="breach"] .poster .g1{background-image:url(img/tex-breach.jpg)
 /* imagery & galleries */
 .gal{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
 .gal figure{margin:0;position:relative;background:var(--shadow);overflow:hidden}
-.gal figure button{display:block;width:100%;padding:0;border:0;background:none}
+.gal figure button{display:block;width:100%;height:100%;padding:0;border:0;background:none}
+.gal .w2 img,.gal .w2 button{height:100%}
+.gal .w2 img{aspect-ratio:auto;position:absolute;inset:0}
+.gal .w2{min-height:100%}
+.gal .w2 img{object-position:66% 50%}
+@media (max-width:860px){.gal .w2 img{position:static;aspect-ratio:4/5}}
 .gal img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9;transition:transform .5s}
 .gal figure:hover img{transform:scale(1.03)}
 .gal figcaption{position:absolute;left:0;bottom:0;background:var(--shadow);color:var(--frost);font-family:var(--display);font-stretch:125%;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px 5px}
@@ -420,7 +425,10 @@ svg[data-emb="emblem"] path{transition:transform .5s var(--ease)}
 .stage[data-state="locked"]:hover .h1{transform:translate(-6px,-7px)}
 .stage[data-state="locked"]:hover .h2{transform:translate(6px,7px)}
 /* chapter supergraphics drift with the pointer (see script); smooth either way */
-.super{transition:transform 1.2s var(--ease);will-change:transform}
+.super{--mx:0px;--my:0px;--rot:0deg;--sy:0px;transform:translate(var(--mx),calc(var(--my) + var(--sy))) rotate(var(--rot));transition:transform 1.2s var(--ease);will-change:transform}
+/* scroll reveals: only when motion is allowed and the script is running, so the page is complete without it */
+html.motion .rv{opacity:0;transform:translateY(32px);transition:opacity .8s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+html.motion .rv.in{opacity:1;transform:none}
 /* logo misuse tiles */
 .mis .box svg:not(.x){transition:transform .5s var(--ease)}
 .mis .box:hover svg:not(.x){transform:scale(1.035)}
@@ -433,10 +441,10 @@ svg[data-emb="emblem"] path{transition:transform .5s var(--ease)}
 .mx button:hover{transform:scale(1.08);z-index:1}
 /* imagery: slow push-in, clipped to its frame */
 .prod-img,.prod-img button{overflow:hidden}
-.prod-img img,.fac-detail img{transition:transform .9s var(--ease)}
-.prod-img:hover img{transform:scale(1.04)}
-.gal img{transition:transform .9s var(--ease)}
-.gal figure:hover img{transform:scale(1.045)}
+[data-par]{--py:0px;--s:1;transform:translateY(var(--py)) scale(var(--s));transition:transform .9s var(--ease);will-change:transform}
+html.motion .gal img[data-par],html.motion .prod-img img[data-par]{--s:1.1;transition:transform .9s var(--ease)}
+.prod-img:hover img[data-par],.gal figure:hover img[data-par]{--s:1.15}
+html:not(.motion) .prod-img:hover img,html:not(.motion) .gal figure:hover img{--s:1.045}
 .tex-board{overflow:hidden}
 .tex-board img{transition:opacity .3s,filter .3s,transform .9s var(--ease)}
 .tex-board img:hover{transform:scale(1.015);filter:saturate(1.15)}
@@ -780,7 +788,7 @@ svg[data-emb="emblem"] path{transition:transform .5s var(--ease)}
     <div class="sec-h"><div><div class="kicker">02.8</div><h2 class="d">Imagery &amp;<br>Materials</h2></div></div>
     <div class="gal" style="margin-bottom:40px">
       <figure class="w4"><button type="button" data-lb="img/wayfinding.jpg" data-cap="Arena wayfinding: wide environmental view, readable architecture"><img src="img/wayfinding.jpg" alt="Arena concourse with LOCKNLOAD wayfinding signage"></button><figcaption>Wide &amp; candid</figcaption></figure>
-      <figure class="w2"><button type="button" data-lb="img/poster.jpg" data-cap="Arena Open Play poster in the flagship store"><img src="img/poster.jpg" alt="Arena Open Play poster on a concrete column" style="aspect-ratio:auto"></button><figcaption>Real materials</figcaption></figure>
+      <figure class="w2"><button type="button" data-lb="img/poster.jpg" data-cap="Arena Open Play poster in the flagship store"><img src="img/poster.jpg" alt="Arena Open Play poster on a concrete column"></button><figcaption>Real materials</figcaption></figure>
     </div>
     <div class="rows">
       <div class="row"><div class="lab">Photographic Realism</div><div class="val"><p>Believable arena lighting, restrained saturation, natural contrast and physical materials. Avoid excessive neon, bloom, unrealistic luminous surfaces and theatrical sci-fi color casts. For arena imagery, favor wider environmental compositions with candid, naturally motion-blurred participants over posed close-ups, and keep the architecture readable.</p></div></div>
@@ -1400,13 +1408,30 @@ const closeLb=()=>{lb.hidden=true};$('#lbClose').onclick=closeLb;lb.onclick=e=>{
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLb();closeMenu()}});
 
 
-/* motion: chapter supergraphics follow the pointer a little */
+/* motion: reveals, scroll parallax, pointer drift */
 (function(){
-  if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  document.querySelectorAll('.divider,.end').forEach(sec=>{
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;
+  const root=document.documentElement;root.classList.add('motion');
+  // slide-ins: blocks reveal as they enter, siblings staggered
+  const groups=['.sec-h','.rows>.row','.values>.value','.pairs>.pair','.comp>div','.logo-stack>.panel','.emb-grid>.panel','.construct>*','.misuse>.mis','.fac-tabs','.fac-detail>*','.swatches','.roles>div','.ratio>*','.typepair>.tcard','.scale-list>div','.tester>*','.tex-filter','.tex-board','.two>div','.density>*','.gal>figure','.prod>*','.sense>div','.parts>.part','details.acc','.builder>*','.cta-demo','.divider .wrap>*','.end .wrap>*'];
+  const seen=new Set();
+  groups.forEach(sel=>document.querySelectorAll(sel).forEach(el=>{if(seen.has(el))return;seen.add(el);el.classList.add('rv');const sib=[...el.parentElement.children].filter(c=>c.matches(sel));el.style.setProperty('--d',Math.min(sib.indexOf(el),6)*0.08+'s')}));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.06});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  // parallax: images drift inside their frames, supergraphics drift against the scroll
+  document.querySelectorAll('.gal img,.prod-img img').forEach(i=>{i.dataset.par='28'});
+  const pars=[...document.querySelectorAll('[data-par]')],supers=[...document.querySelectorAll('.super')];
+  let tick=false;
+  function frame(){tick=false;const vh=innerHeight;
+    pars.forEach(el=>{const r=el.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const p=(r.top+r.height/2-vh/2)/vh;el.style.setProperty('--py',(-p*+el.dataset.par).toFixed(1)+'px')});
+    supers.forEach(g=>{const r=g.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const p=(r.top+r.height/2-vh/2)/vh;g.style.setProperty('--sy',(p*70).toFixed(1)+'px')});}
+  const req=()=>{if(!tick){tick=true;requestAnimationFrame(frame)}};
+  addEventListener('scroll',req,{passive:true});addEventListener('resize',req);frame();
+  // pointer drift on chapter openers (mouse only)
+  if(matchMedia('(pointer:fine)').matches)document.querySelectorAll('.divider,.end').forEach(sec=>{
     const g=sec.querySelector('.super');if(!g)return;
-    sec.addEventListener('pointermove',e=>{const r=sec.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;g.style.transform=`translate(${(-x*18).toFixed(1)}px,${(-y*12).toFixed(1)}px) rotate(${(x*1.2).toFixed(2)}deg)`});
-    sec.addEventListener('pointerleave',()=>{g.style.transform=''});
+    sec.addEventListener('pointermove',e=>{const r=sec.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;g.style.setProperty('--mx',(-x*18).toFixed(1)+'px');g.style.setProperty('--my',(-y*12).toFixed(1)+'px');g.style.setProperty('--rot',(x*1.2).toFixed(2)+'deg')});
+    sec.addEventListener('pointerleave',()=>{['--mx','--my','--rot'].forEach(k=>g.style.removeProperty(k))});
   });
 })();
 /* nav */
