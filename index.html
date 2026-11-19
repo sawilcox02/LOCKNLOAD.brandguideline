@@ -399,6 +399,54 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
   .tcard{padding:22px}
   .mis b{font-size:11px}
 }
+/* ---------- motion: hover life on graphics only (text never moves) ---------- */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+/* emblem inside every logo: the two halves ease apart a few units, like a lock releasing */
+svg.logo-frost g:nth-of-type(3) path,svg.logo-shadow g:nth-of-type(3) path{transition:transform .5s var(--ease)}
+.panel:hover svg g:nth-of-type(3) path:first-child,.rail-logo a:hover g:nth-of-type(3) path:first-child,.cover-logo:hover g:nth-of-type(3) path:first-child,.mis .box:hover svg:not(.x) g:nth-of-type(3) path:first-child{transform:translate(-9px,-9px)}
+.panel:hover svg g:nth-of-type(3) path:last-child,.rail-logo a:hover g:nth-of-type(3) path:last-child,.cover-logo:hover g:nth-of-type(3) path:last-child,.mis .box:hover svg:not(.x) g:nth-of-type(3) path:last-child{transform:translate(9px,9px)}
+/* stand-alone emblems */
+svg[data-emb]{transition:transform .5s var(--ease)}
+svg[data-emb="emblem"] path{transition:transform .5s var(--ease)}
+.panel:hover svg[data-emb="emblem"]{transform:scale(1.04)}
+.panel:hover svg[data-emb="emblem"] path:first-child{transform:translate(-5px,-5px)}
+.panel:hover svg[data-emb="emblem"] path:last-child{transform:translate(5px,5px)}
+.fac-tab svg{transition:transform .5s var(--ease),opacity .35s}
+.fac-tab:hover svg{transform:translateY(-6px) scale(1.04)}
+.fac-tab[aria-pressed="true"]:hover svg{transform:translateY(-6px) scale(1.09)}
+.fbtn svg{transition:transform .35s var(--ease)}
+.fbtn:hover svg{transform:translateY(-2px) scale(1.12)}
+/* emblem construction stage: halves lean apart slightly while locked */
+.stage[data-state="locked"]:hover .h1{transform:translate(-6px,-7px)}
+.stage[data-state="locked"]:hover .h2{transform:translate(6px,7px)}
+/* chapter supergraphics drift with the pointer (see script); smooth either way */
+.super{transition:transform 1.2s var(--ease);will-change:transform}
+/* logo misuse tiles */
+.mis .box svg:not(.x){transition:transform .5s var(--ease)}
+.mis .box:hover svg:not(.x){transform:scale(1.035)}
+/* swatches: a band of the swatch's own color rises from the base */
+.sw{overflow:hidden}
+.sw::after{content:"";position:absolute;left:0;right:0;bottom:0;height:0;background:currentColor;opacity:.14;transition:height .45s var(--ease)}
+.sw:hover::after,.sw:focus-visible::after{height:10px}
+/* contrast cells */
+.mx button{transition:transform .25s var(--ease)}
+.mx button:hover{transform:scale(1.08);z-index:1}
+/* imagery: slow push-in, clipped to its frame */
+.prod-img,.prod-img button{overflow:hidden}
+.prod-img img,.fac-detail img{transition:transform .9s var(--ease)}
+.prod-img:hover img{transform:scale(1.04)}
+.gal img{transition:transform .9s var(--ease)}
+.gal figure:hover img{transform:scale(1.045)}
+.tex-board{overflow:hidden}
+.tex-board img{transition:opacity .3s,filter .3s,transform .9s var(--ease)}
+.tex-board img:hover{transform:scale(1.015);filter:saturate(1.15)}
+/* density poster: the faction texture slides in a touch */
+.poster .g1{transition:opacity .4s,transform .9s var(--ease)}
+.poster:hover .g1{transform:skewY(-8deg) translateX(-10px)}
+.poster .bp{transition:opacity .4s,background-position 1.6s var(--ease)}
+.poster:hover .bp{background-position:12px 8px}
+@media (prefers-reduced-motion:reduce){.super{transform:none!important}}
+
 </style>
 </head>
 <body>
@@ -1351,6 +1399,16 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-lb]');if(!
 const closeLb=()=>{lb.hidden=true};$('#lbClose').onclick=closeLb;lb.onclick=e=>{if(e.target===lb)closeLb()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLb();closeMenu()}});
 
+
+/* motion: chapter supergraphics follow the pointer a little */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  document.querySelectorAll('.divider,.end').forEach(sec=>{
+    const g=sec.querySelector('.super');if(!g)return;
+    sec.addEventListener('pointermove',e=>{const r=sec.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;g.style.transform=`translate(${(-x*18).toFixed(1)}px,${(-y*12).toFixed(1)}px) rotate(${(x*1.2).toFixed(2)}deg)`});
+    sec.addEventListener('pointerleave',()=>{g.style.transform=''});
+  });
+})();
 /* nav */
 const rail=$('#rail'),scrim=$('#scrim'),mb=$('#menuBtn');
 function closeMenu(){rail.classList.remove('open');scrim.hidden=true;mb.setAttribute('aria-expanded','false')}
