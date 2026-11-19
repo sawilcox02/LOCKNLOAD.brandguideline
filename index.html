@@ -457,6 +457,19 @@ html:not(.motion) .prod-img:hover img,html:not(.motion) .gal figure:hover img{--
 .poster:hover .bp{background-position:12px 8px}
 @media (prefers-reduced-motion:reduce){.super{transform:none!important}}
 
+/* target practice */
+.tp{position:relative;aspect-ratio:16/9;max-width:100%;background:var(--shadow);overflow:hidden}
+.tp canvas{display:block;width:100%;height:100%;touch-action:manipulation;outline:none}
+.tp canvas:focus-visible{outline:3px solid var(--fac);outline-offset:-3px}
+.tp:fullscreen{width:100vw;height:100vh;aspect-ratio:auto;display:flex;align-items:center;justify-content:center;background:#0e0d14}
+.tp:fullscreen canvas{width:min(100vw,177.78vh);height:auto;aspect-ratio:16/9}
+.tp-entry{position:absolute;left:50%;top:60%;transform:translateX(-50%)}
+.tp-entry form{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.tp-entry label{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--frost)}
+.tp-entry input{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:26px;width:4.6em;padding:6px 10px 4px;text-align:center;text-transform:uppercase;letter-spacing:.12em;border:2px solid var(--frost);background:var(--shadow);color:var(--frost);border-radius:0}
+.tp-entry input:focus{outline:none;border-color:var(--pulse)}
+.tp-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+
 </style>
 </head>
 <body>
@@ -492,6 +505,8 @@ html:not(.motion) .prod-img:hover img,html:not(.motion) .gal figure:hover img{--
     <a href="#prompt-b">Part B: Brief Builder</a>
     <div class="ch"><span>05</span>Print Edition</div>
     <a href="book/">Book Export (PDF)</a>
+    <div class="ch"><span>06</span>Play</div>
+    <a href="#target-practice">Target Practice</a>
   </nav>
   <div class="fswitch">
     <div class="lbl">View as faction</div>
@@ -888,6 +903,16 @@ html:not(.motion) .prod-img:hover img,html:not(.motion) .gal figure:hover img{--
         <div class="status" id="status" role="status"></div>
       </aside>
     </div>
+  </div></section>
+
+  <section class="sec" id="target-practice"><div class="wrap">
+    <div class="sec-h"><div><div class="kicker">06</div><h2 class="d">Target<br>Practice</h2></div></div>
+    <p style="max-width:64ch;margin-bottom:28px">A training lane for the VOLT system. Clear each round’s hit quota before the clock runs out, and every round gets faster. Focus targets score triple, Adapt targets score double, and Breach targets push toward the bench.</p>
+    <div class="tp" id="tp">
+      <canvas id="tpCanvas" tabindex="0" aria-label="Target Practice game. Click or press Enter to start."></canvas>
+      <div class="tp-entry" id="tpEntry" hidden><form id="tpEntryForm"><label for="tpInitials">Initials</label><input id="tpInitials" maxlength="3" autocomplete="off" spellcheck="false" placeholder="AAA"><button class="btn solid" type="submit">Save score</button></form></div>
+    </div>
+    <div class="tp-bar"><span class="note">Click to fire · R or right-click to reload · M sound · Esc pause. High scores save in this browser only.</span><button class="btn" id="tpFull" type="button">Fullscreen</button></div>
   </div></section>
 
   <section class="end" aria-label="Closing">
@@ -1489,6 +1514,7 @@ $('#clearB').onclick=()=>{$('#confirmBox').hidden=false};
 $('#clearNo').onclick=()=>{$('#confirmBox').hidden=true};
 $('#clearYes').onclick=()=>{ans={};$$('#partB textarea').forEach(t=>t.value='');save();$('#confirmBox').hidden=true;$('#status').textContent='Answers cleared.'};
 </script>
+<script src="game.js"></script>
 
 </body>
 </html>
