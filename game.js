@@ -461,12 +461,12 @@
     if (off.width !== cv.width || off.height !== cv.height) { off.width = cv.width; off.height = cv.height; }
     offc.setTransform(1, 0, 0, 1, 0, 0); offc.clearRect(0, 0, off.width, off.height); offc.drawImage(cv, 0, 0);
     ctx.save();
-    ctx.fillStyle = 'rgba(12,11,18,.55)'; ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(x, y, R, 0, 6.28, true); ctx.fill();
+    ctx.fillStyle = 'rgba(12,11,18,.22)'; ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(x, y, R, 0, 6.28, true); ctx.fill();
     ctx.beginPath(); ctx.arc(x, y, R, 0, 6.28); ctx.clip();
     ctx.translate(x, y); ctx.scale(Z, Z); ctx.translate(-x, -y); ctx.drawImage(off, 0, 0, W, H);
     ctx.restore();
     ctx.save(); ctx.translate(x, y);
-    const vg = ctx.createRadialGradient(0, 0, R * .7, 0, 0, R); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.3)');
+    const vg = ctx.createRadialGradient(0, 0, R * .7, 0, 0, R); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.12)');
     ctx.fillStyle = vg; ctx.beginPath(); ctx.arc(0, 0, R, 0, 6.28); ctx.fill();
     ctx.strokeStyle = c; ctx.lineWidth = 7; ctx.beginPath(); ctx.arc(0, 0, R, 0, 6.28); ctx.stroke();
     ctx.strokeStyle = 'rgba(10,9,16,.9)'; ctx.lineWidth = 2;
