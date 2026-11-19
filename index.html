@@ -406,6 +406,7 @@ details.acc[open] summary .pm{transform:rotate(45deg)}
 }
 /* ---------- motion: hover life on graphics only (text never moves) ---------- */
 :root{--ease:cubic-bezier(.2,.8,.2,1)}
+svg.logo-frost,svg.logo-shadow,svg[data-emb]{overflow:visible}
 /* emblem inside every logo: the two halves ease apart a few units, like a lock releasing */
 svg.logo-frost g:nth-of-type(3) path,svg.logo-shadow g:nth-of-type(3) path{transition:transform .5s var(--ease)}
 .panel:hover svg g:nth-of-type(3) path:first-child,.rail-logo a:hover g:nth-of-type(3) path:first-child,.cover-logo:hover g:nth-of-type(3) path:first-child,.mis .box:hover svg:not(.x) g:nth-of-type(3) path:first-child{transform:translate(-9px,-9px)}
