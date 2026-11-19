@@ -16,7 +16,8 @@ body{font-family:"address-sans-pro","Txt",sans-serif;color:var(--shadow);-webkit
 .sheet{position:relative;overflow:hidden;background:#fff;page-break-after:always;break-after:page}
 .sheet:last-child{page-break-after:auto;break-after:auto}
 .mode-proof .sheet,.mode-print .sheet{width:17in;height:11in}
-.mode-spreads .sheet{width:12in;height:13.5in;background:#5d5b66}
+.mode-spreads .sheet,.mode-pages .sheet{width:12in;height:13.5in;background:#5d5b66}
+.mode-pages .sheet{background:var(--shadow)}
 /* book page incl bleed */
 .bp{position:absolute;width:12.25in;height:7in;overflow:hidden;background:var(--paper)}
 .mode-proof .bp,.mode-print .bp{left:2.375in;top:2in}
@@ -489,7 +490,7 @@ const PROMPT={
 };
 const MODE=new URLSearchParams(location.search).get('mode')||'proof';
 document.body.className='mode-'+MODE;
-{const st=document.createElement('style');st.textContent=MODE==='spreads'?'@page{size:12in 13.5in;margin:0}':'@page{size:17in 11in;margin:0}';document.head.appendChild(st);}
+{const st=document.createElement('style');st.textContent=(MODE==='spreads'||MODE==='pages')?'@page{size:12in 13.5in;margin:0}':'@page{size:17in 11in;margin:0}';document.head.appendChild(st);}
 const C={pulse:'#9C26F0',shadow:'#211F2D',frost:'#EEF1F9',ign:'#FF7514',surge:'#91E829',paper:'#FFFFFF'};
 /* ---------- geometry (inches) ---------- */
 const TW=12,TH=6.75,BL=.125,BIND=.875,M=.5,G=.1875;
@@ -746,12 +747,14 @@ function holeTicks(side){const k=96,L=2.5,T=2.125,Bt=8.875;let s='';const y=side
 function render(){
  let h='';
  if(MODE==='proof')h+=specSheets();
- if(MODE==='spreads'){
+ if(MODE==='spreads'||MODE==='pages'){
+  const clean=MODE==='pages';
+  const blank=`<div style="position:absolute;left:0;width:12in;height:6.75in;background:${C.shadow}"></div>`;
   // spreads: top A, bottom B; first spread has cover top
   const sp=[];let i=0;sp.push([null,pages[0]]);for(i=1;i<pages.length;i+=2)sp.push([pages[i],pages[i+1]||null]);
-  sp.forEach(([a,b])=>{h+=`<div class="sheet">${a?`<div style="position:absolute;left:-.125in;top:-.125in;width:12.25in;height:7in">${bpHTML(a)}</div>`:`<div style="position:absolute;left:0;top:0;width:12in;height:6.75in;background:${concrete()}"><p class="cap" style="position:absolute;left:.5in;top:.4in;color:#555">Inside front cover</p></div>`}
-   ${b?`<div style="position:absolute;left:-.125in;top:6.625in;width:12.25in;height:7in">${bpHTML(b)}</div>`:`<div style="position:absolute;left:0;top:6.75in;width:12in;height:6.75in;background:${concrete()}"><p class="cap" style="position:absolute;left:.5in;bottom:.4in;color:#555">Inside back cover</p></div>`}
-   ${rings()}</div>`});
+  sp.forEach(([a,b])=>{h+=`<div class="sheet">${a?`<div style="position:absolute;left:-.125in;top:-.125in;width:12.25in;height:7in">${bpHTML(a)}</div>`:clean?blank.replace('left:0;','left:0;top:0;'):`<div style="position:absolute;left:0;top:0;width:12in;height:6.75in;background:${concrete()}"><p class="cap" style="position:absolute;left:.5in;top:.4in;color:#555">Inside front cover</p></div>`}
+   ${b?`<div style="position:absolute;left:-.125in;top:6.625in;width:12.25in;height:7in">${bpHTML(b)}</div>`:clean?blank.replace('left:0;','left:0;top:6.75in;'):`<div style="position:absolute;left:0;top:6.75in;width:12in;height:6.75in;background:${concrete()}"><p class="cap" style="position:absolute;left:.5in;bottom:.4in;color:#555">Inside back cover</p></div>`}
+   ${clean?'':rings()}</div>`});
  } else {
   pages.forEach(p=>{h+=`<div class="sheet">${bpHTML(p)}<svg class="crop" viewBox="0 0 1632 1056">${cropMarks().replace(/^<svg[^>]*>/,'')}${holeTicks(p.side)}</svg>
    <div class="slug" style="top:${p.side==='B'?9.25:1.55}in"><span><b>LOCKNLOAD Brand Guidelines</b> · Sheet ${p.sheet} of ${window.SHEETS} · <b>${p.face}</b> · ${p.side==='B'?'Bottom page (copy)':'Top page (visual)'} · ${p.code} ${p.label}</span><span>Trim 12 × 6.75 in · Bleed 0.125 in · Print at 100%</span></div>
